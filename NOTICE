@@ -1,0 +1,33 @@
+Liturgical Companion for KOReader
+Copyright (c) 2026 Liturgical Companion contributors
+Plugin code: MIT License (see LICENSE).
+
+The plugin ships references only: names of liturgical days and celebrations,
+ranks and colours, and Scripture and patristic citations. It contains no
+Scripture text, no liturgical prose, no saint biographies and no commentary
+excerpts. It is not an official liturgical book.
+
+Calendar data
+- General Roman and national calendar facts and celebration names are derived
+  from Romcal (https://github.com/romcal/romcal), copyright its contributors,
+  MIT License.
+
+Mass reading references (citations only)
+- United States: derived from the United States Conference of Catholic Bishops
+  liturgical calendar and daily readings pages (https://bible.usccb.org/).
+  Only factual assignments and Scripture citations are used.
+- General Roman calendar: derived from LiturgicalCalendarAPI
+  (https://github.com/Liturgical-Calendar/LiturgicalCalendarAPI), copyright its
+  contributors, Apache License 2.0. Only citation assignments are used.
+- Italy: derived from Parola Viva open data (https://parolaviva.art/opendata),
+  curated by Giovanni Novelli, CC BY 4.0. Only citation assignments are used.
+- Other calendars reuse these citation sets where the celebration is the same
+  and are marked as computed, not verified.
+
+Office of Readings references
+- Author and work references are derived from the Office of Readings index at
+  https://church.catholic-resources.org/ (facts only; no reading text).
+
+Gospel commentary references
+- Catena Aurea author attributions are derived from the structured English
+  Catena at https://github.com/AlvaroBalbin/catena (attribution names only).
