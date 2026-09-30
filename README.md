@@ -12,7 +12,7 @@ Open it on any day to see:
 - **the Gospel commentary**: which Fathers the Catena Aurea quotes on the day's Gospel
 
 <p align="center">
-  <img src="https://github.com/mabbamOG/liturgical-companion.koplugin/releases/download/v0.1.1/panel-christmas.png" alt="The daily panel in KOReader: Christmas in the U.S.A. calendar" width="420">
+  <img src="screenshots/panel-christmas.png" alt="The daily panel in KOReader: Christmas in the U.S.A. calendar" width="420">
 </p>
 
 It works fully offline, with no account and no network access, and is built for
@@ -23,14 +23,14 @@ the [AppStore plugin](https://github.com/omer-faruq/appstore.koplugin).
 
 <table>
   <tr>
-    <td align="center"><img src="https://github.com/mabbamOG/liturgical-companion.koplugin/releases/download/v0.1.1/panel-weekday.png" alt="A weekday with a memorial" width="260"><br><sub>A weekday: memorial, readings, commentary, Office</sub></td>
-    <td align="center"><img src="https://github.com/mabbamOG/liturgical-companion.koplugin/releases/download/v0.1.1/panel-all-saints.png" alt="All Saints" width="260"><br><sub>A solemnity</sub></td>
-    <td align="center"><img src="https://github.com/mabbamOG/liturgical-companion.koplugin/releases/download/v0.1.1/date-picker.png" alt="Date picker" width="260"><br><sub>Choose any date</sub></td>
+    <td align="center"><img src="screenshots/panel-weekday.png" alt="A weekday with a memorial" width="260"><br><sub>A weekday: memorial, readings, commentary, Office</sub></td>
+    <td align="center"><img src="screenshots/panel-all-saints.png" alt="All Saints" width="260"><br><sub>A solemnity</sub></td>
+    <td align="center"><img src="screenshots/date-picker.png" alt="Date picker" width="260"><br><sub>Choose any date</sub></td>
   </tr>
   <tr>
-    <td align="center"><img src="https://github.com/mabbamOG/liturgical-companion.koplugin/releases/download/v0.1.1/menu.png" alt="Plugin menu" width="260"><br><sub>Tools → More tools → Liturgical companion</sub></td>
-    <td align="center"><img src="https://github.com/mabbamOG/liturgical-companion.koplugin/releases/download/v0.1.1/menu-country.png" alt="Country setting" width="260"><br><sub>Choose your calendar</sub></td>
-    <td align="center"><img src="https://github.com/mabbamOG/liturgical-companion.koplugin/releases/download/v0.1.1/country-picker.png" alt="Viewing another country" width="260"><br><sub>🌐 View the day in another country</sub></td>
+    <td align="center"><img src="screenshots/menu.png" alt="Plugin menu" width="260"><br><sub>Tools → More tools → Liturgical companion</sub></td>
+    <td align="center"><img src="screenshots/menu-country.png" alt="Country setting" width="260"><br><sub>Choose your calendar</sub></td>
+    <td align="center"><img src="screenshots/country-picker.png" alt="Viewing another country" width="260"><br><sub>🌐 View the day in another country</sub></td>
   </tr>
 </table>
 
