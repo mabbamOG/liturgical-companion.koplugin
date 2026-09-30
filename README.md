@@ -76,16 +76,22 @@ México, New Zealand, Österreich, Panamá, Paraguay, Perú, Philippines, Polska
 Puerto Rico, Scotland, U.S.A., Uruguay, Venezuela.
 
 Languages: English, Latin, Italian, German, French, Spanish, Polish and
-Simplified Chinese. Years covered: **2026 and 2027**.
+Simplified Chinese.
+
+**Any year from 1900 to 2200.** Nothing is stored per day: the plugin computes
+each day on your device from the liturgical rules (Easter and the seasons,
+feasts and their precedence, national transfers) and small reference tables
+(the Lectionary, the saints of each calendar, the Office of Readings and the
+Catena). It uses today's calendar and Lectionary for every year.
 
 ## About the data
 
 - **References only.** The plugin shows names and citations: no Scripture
   text, no liturgical prose, no biographies. Pair it with the Bible you are reading.
 - **Not an official liturgical book.** Check your diocese's Ordo for local feasts and
-  transfers. U.S. readings come from the USCCB. Other calendars reuse the same
-  readings where the celebration matches, and those readings are marked as
-  computed rather than verified.
+  transfers. Readings follow the U.S. Lectionary as published by the USCCB;
+  Italy and the General Roman Calendar use their own editions where the project
+  has them.
 - Sources and licences are listed in [NOTICE](NOTICE).
 
 ## License

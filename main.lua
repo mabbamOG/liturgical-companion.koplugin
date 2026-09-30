@@ -6,10 +6,10 @@ liturgical day with its full name, the celebration(s) and commemorated
 saints/martyrs, the readings of each Mass formulary, the secondary (Office)
 reading reference, and the Gospel commentary (Catena Aurea) reference.
 
-It reads one small generated multi-country JSON bundle from ``<plugin>/data/``.
-It never uses the network and contains no liturgical prose, only references.
-
-See ``docs/KOREADER_PLUGIN.md`` and ``PLAN.md`` section 37.
+Every day is computed on the device (lc_engine.lua) from the liturgical rules
+and small tables in ``<plugin>/engine/``; ``<plugin>/data/lc-index.json`` holds
+the interface labels. It never uses the network and contains no liturgical
+prose, only references.
 
 @module koplugin.liturgicalcompanion
 --]]--
@@ -27,6 +27,8 @@ local _ = require("gettext")
 local T = util.template
 
 local INDEX_FILE = "lc-index.json"
+-- Years the on-device engine computes (the Lunar New Year table bounds China).
+local YEAR_MIN, YEAR_MAX = 1900, 2200
 
 -- KOReader's JSON decoder represents JSON null with a function sentinel.
 local JSON_NULL = (JSON.util and JSON.util.null) or nil
@@ -151,31 +153,26 @@ function LiturgicalCompanion:loadIndex()
     return decoded
 end
 
-function LiturgicalCompanion:loadProfile(profile)
-    self._profiles = self._profiles or {}
-    if self._profiles[profile] ~= nil then return self._profiles[profile] end
-    local path = string.format("%s/data/lc-%s.json", self.path, profile)
-    local payload = self:readFile(path)
-    if not payload then
-        self._profiles[profile] = false
-        return false
+-- Days are computed on the device from rules and small tables (lc_engine.lua,
+-- engine/): no per-day data is stored.
+function LiturgicalCompanion:getEngine()
+    if self._engine == nil then
+        local ok, engine = pcall(function()
+            local Engine = dofile(self.path .. "/lc_engine.lua")
+            return Engine.new(self.path .. "/engine")
+        end)
+        if not ok then logger.warn("LiturgicalCompanion: cannot load the engine", engine) end
+        self._engine = ok and engine or false
     end
-    local ok, decoded = pcall(JSON.decode, payload)
-    if not ok or type(decoded) ~= "table" or type(decoded.days) ~= "table" then
-        logger.warn("LiturgicalCompanion: cannot decode country data", path)
-        self._profiles[profile] = false
-        return false
-    end
-    self._profiles[profile] = decoded
-    return decoded
+    return self._engine
 end
 
 function LiturgicalCompanion:getProfiles()
     local index = self:loadIndex()
     if not index then return {} end
     local profiles = {}
-    for profile, years in pairs(index.profile_years or {}) do
-        profiles[profile] = { years = years }
+    for profile in pairs(index.profile_labels or {}) do
+        profiles[profile] = { years = { YEAR_MIN, YEAR_MAX } }
     end
     return profiles
 end
@@ -222,16 +219,23 @@ function LiturgicalCompanion:sortedProfiles()
     return names
 end
 
-function LiturgicalCompanion:getYears(profile)
-    local index = self:loadIndex()
-    local years = index and index.profile_years and index.profile_years[profile]
-    return years or {}
+function LiturgicalCompanion:getYears(_profile)
+    return { YEAR_MIN, YEAR_MAX }
 end
 
 function LiturgicalCompanion:getDay(profile, date)
-    local data = self:loadProfile(profile)
-    local days = data and data.days
-    return days and days[date] or nil
+    local year = tonumber((date or ""):sub(1, 4))
+    if not year or year < YEAR_MIN or year > YEAR_MAX then return nil end
+    local engine = self:getEngine()
+    if not engine then return nil end
+    self._day_cache = self._day_cache or {}
+    local key = profile .. "/" .. date
+    if self._day_cache[key] == nil then
+        local ok, day = pcall(engine.day, engine, profile, date)
+        if not ok then logger.warn("LiturgicalCompanion: cannot compute", key, day) end
+        self._day_cache[key] = (ok and day) or false
+    end
+    return self._day_cache[key] or nil
 end
 
 -- ---------------------------------------------------------------------------
@@ -575,11 +579,8 @@ function LiturgicalCompanion:resolveDay(profile, date)
     if self:getDay(profile, date) then return date, nil end
     local year = tonumber(date:sub(1, 4))
     local nearest = nil
-    for _i, candidate in ipairs(self:getYears(profile)) do
-        if nearest == nil or math.abs(candidate - year) < math.abs(nearest - year) then
-            nearest = candidate
-        end
-    end
+    if year and year < YEAR_MIN then nearest = YEAR_MIN end
+    if year and year > YEAR_MAX then nearest = YEAR_MAX end
     if nearest then
         local alternative = string.format("%04d%s", nearest, date:sub(5))
         if self:getDay(profile, alternative) then
@@ -618,17 +619,10 @@ function LiturgicalCompanion:showDayFor(profile, date)
         })
         return
     end
-    local data = self:loadProfile(profile)
-    if not data then
-        UIManager:show(InfoMessage:new{
-            text = T(_("No data for %1 in %2."), date, self:getCountryLabel(profile)),
-        })
-        return
-    end
     local view = {
         locales = index.locales,
         profile_labels = index.profile_labels,
-        profiles = { [profile] = data },
+        profiles = { [profile] = { days = { [resolved] = self:getDay(profile, resolved) } } },
     }
     -- Render in the viewed country's own language, so a temporary switch is
     -- visibly different even when two calendars share the same day.
@@ -695,11 +689,16 @@ function LiturgicalCompanion:showCountryMenu(date, current_profile)
     local names = self:sortedProfiles()
     local menu
     local item_table = {}
-    for _i, name in ipairs(names) do
+    local current_index = 1
+    for index, name in ipairs(names) do
         local label = self:getCountryLabel(name)
-        if name == current_profile then label = label .. '  ng' end
+        local current = name == current_profile
+        if current then current_index = index end
         table.insert(item_table, {
             text = label,
+            -- The country being viewed: bold, with KOReader's check mark on the right.
+            bold = current,
+            mandatory = current and "✓" or nil,
             callback = function()
                 if menu then UIManager:close(menu) end
                 self._country_menu = nil
@@ -716,6 +715,8 @@ function LiturgicalCompanion:showCountryMenu(date, current_profile)
         height = Screen:getHeight() - Screen:scaleBySize(20),
         items_per_page = 14,
     }
+    -- Open on the page that holds the country being viewed.
+    menu:switchItemTable(nil, item_table, current_index)
     self._country_menu = menu
     UIManager:show(menu)
 end
@@ -724,6 +725,9 @@ function LiturgicalCompanion:pickDateFor(date, viewer)
     local DateTimeWidget = require("ui/widget/datetimewidget")
     local y, m, d = date:match("^(%d%d%d%d)%-(%d%d)%-(%d%d)$")
     UIManager:show(DateTimeWidget:new{
+        -- KOReader's picker offers 2021-2525 unless told otherwise.
+        year_min = YEAR_MIN,
+        year_max = YEAR_MAX,
         year = tonumber(y),
         month = tonumber(m),
         day = tonumber(d),
@@ -750,10 +754,7 @@ function LiturgicalCompanion:showAbout()
     local profiles = self:getProfiles()
     local available = {}
     for _i, profile in ipairs(self:sortedProfiles()) do
-        table.insert(
-            available,
-            string.format("%s (%s)", self:getCountryLabel(profile), table.concat(profiles[profile].years or {}, ", "))
-        )
+        table.insert(available, self:getCountryLabel(profile))
     end
     UIManager:show(InfoMessage:new{
         text = T(
@@ -763,12 +764,15 @@ Liturgical Companion %1
 Offline daily references for the day you are reading: the full name of the day, the saints and martyrs, the Mass readings, the secondary (Office) reading, and the Gospel commentary (Catena Aurea) reference, in any supported country and language.
 
 Repository: %2
-Installed countries: %3
+Calendars: %3
+Years: %4–%5
 
-Generated from the same normalized data as the EPUBs. Not an official liturgical book.]]),
+Every day is computed on this device from the liturgical rules and small reference tables. Not an official liturgical book.]]),
             self.version or "0.0.0",
             REPOSITORY_URL,
-            (#available > 0) and table.concat(available, "; ") or _("none")
+            (#available > 0) and table.concat(available, "; ") or _("none"),
+            YEAR_MIN,
+            YEAR_MAX
         ),
     })
 end
@@ -856,6 +860,7 @@ function LiturgicalCompanion:regionMenuItems()
     local items = {}
     for _i, name in ipairs(names) do
         local years = profiles[name].years or {}
+        years = { string.format("%d–%d", years[1] or YEAR_MIN, years[2] or YEAR_MAX) }
         local prefix = (name == "GR") and (GLYPH_GLOBE .. " ") or ""
         table.insert(items, {
             text = prefix .. self:getCountryLabel(name),

@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.2.0 (2026-09-30)
+
+- Every day is now computed on the device from the liturgical rules and small
+  reference tables, instead of being read from stored per-day data: any year
+  from 1900 to 2200, and the plugin is about a twentieth of its former size.
+- The engine reproduces the previous per-day data for 2026-2027 in every
+  calendar, and matches the project's Python generator for every other year it
+  was checked against.
+- A memorial without its own readings now always shows the weekday readings.
+- The country list marks the country being viewed (bold, with a check mark)
+  and opens on its page; the date picker spans every supported year.
+
 ## v0.1.1 (2026-09-30)
 
 - Compact panel: lines within a section (the day, each Mass, the Office
