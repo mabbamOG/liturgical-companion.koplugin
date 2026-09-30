@@ -35,6 +35,11 @@ e-ink (Kindle, Kobo, PocketBook, Android).
 
 ## Install
 
+**With [AppStore](https://github.com/omer-faruq/appstore.koplugin):** search for
+*liturgical-companion* and choose **Install**.
+
+**By hand:**
+
 1. Download **`liturgical-companion.koplugin-vX.Y.Z.zip`** from the
    [latest release](https://github.com/mabbamOG/liturgical-companion.koplugin/releases/latest).
 2. Unzip it into KOReader's `plugins` folder, so you get
