@@ -32,6 +32,11 @@ the [AppStore plugin](https://github.com/omer-faruq/appstore.koplugin).
     <td align="center"><img src="screenshots/menu-country.png" alt="Country setting" width="260"><br><sub>Choose your calendar</sub></td>
     <td align="center"><img src="screenshots/country-picker.png" alt="Viewing another country" width="260"><br><sub>🌐 View the day in another country</sub></td>
   </tr>
+  <tr>
+    <td align="center"><img src="screenshots/panel-tlm-1962.png" alt="A Sunday in the 1962 Missal" width="260"><br><sub>Traditional Latin Mass (1962 Missal)</sub></td>
+    <td align="center"><img src="screenshots/panel-1850-christmas.png" alt="Christmas 1850" width="260"><br><sub>Christmas 1850, in the Missal of the day</sub></td>
+    <td align="center"><img src="screenshots/menu-edition.png" alt="Missal edition setting" width="260"><br><sub>Choose the Missal edition</sub></td>
+  </tr>
 </table>
 
 ## Install
@@ -78,11 +83,35 @@ Puerto Rico, Scotland, U.S.A., Uruguay, Venezuela.
 Languages: English, Latin, Italian, German, French, Spanish, Polish and
 Simplified Chinese.
 
-**Any year from 1900 to 2200.** Nothing is stored per day: the plugin computes
+**Any year from 1583 to 9999.** Nothing is stored per day: the plugin computes
 each day on your device from the liturgical rules (Easter and the seasons,
 feasts and their precedence, national transfers) and small reference tables
 (the Lectionary, the saints of each calendar, the Office of Readings and the
-Catena). It uses today's calendar and Lectionary for every year.
+Catena).
+
+## Missal editions
+
+By default the plugin follows the Missal **in force on the day shown**: the
+Roman Missal of Paul VI from Advent 1969, and before that the older editions
+of the Roman Missal, each with its own calendar, ranks and one-year cycle of
+Epistles and Gospels. Under **Tools → More tools → Liturgical companion →
+Missal edition** you can instead always use one edition, for example the
+**Roman Missal of 1962** for the Traditional Latin Mass.
+
+| Edition | In force (automatic) |
+|---|---|
+| Roman Missal of Paul VI | from Advent 1969 |
+| Roman Missal of 1962 (Traditional Latin Mass) | 1961–1969 |
+| Roman Missal of 1955 (Pius XII) | 1956–1960 |
+| Roman Missal of 1954 (Pius X's rubrics) | 1944–1955 |
+| Roman Missal of 1939 (Pius X's rubrics) | 1913–1943 |
+| Roman Missal of 1906 | 1906–1912 |
+| Roman Missal of 1888 | 1888–1905 |
+| Roman Missal of 1570 (Pius V) | 1583–1887 |
+
+The older editions show the General Roman Calendar (no national feasts) and
+have no Office of Readings line. Dates between editions are approximate: each
+reform took effect over months or years.
 
 ## About the data
 

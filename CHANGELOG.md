@@ -1,5 +1,22 @@
 # Changelog
 
+## v0.3.0 (2026-09-30)
+
+- **Missal editions.** By default each day follows the Roman Missal in force on
+  that date: the Missal of Paul VI from Advent 1969, and before it the 1962,
+  1955, 1954, 1939, 1906, 1888 and 1570 editions, each with its own calendar,
+  ranks, colours and one-year cycle of Epistles and Gospels. A new setting
+  (Missal edition) can fix one edition, e.g. the 1962 Missal for the
+  Traditional Latin Mass.
+- Any date from 15 October 1583 (the first Gregorian day) to 9999; the date
+  picker keeps to the range of the chosen edition.
+- The older editions are reproduced exactly from Divinum Officium's rubrics
+  (checked on 358,190 days across all seven editions) and show the General
+  Roman Calendar.
+- The globe's country list opens on top of the panel, like the date picker:
+  closing it returns to the day you were viewing.
+- The Missal edition menu follows KOReader's interface language.
+
 ## v0.2.0 (2026-09-30)
 
 - Every day is now computed on the device from the liturgical rules and small

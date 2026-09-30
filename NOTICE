@@ -28,6 +28,12 @@ Office of Readings references
 - Author and work references are derived from the Office of Readings index at
   https://church.catholic-resources.org/ (facts only; no reading text).
 
+Pre-1970 Missal editions (1570 to 1962)
+- The calendars, ranks, colours, titles and Scripture citations of the older
+  Roman Missal editions are derived from Divinum Officium
+  (https://github.com/DivinumOfficium/divinum-officium), Copyright (c) 2026
+  Divinum Officium, MIT License. Only these facts are used; no liturgical text.
+
 Gospel commentary references
 - Catena Aurea author attributions are derived from the structured English
   Catena at https://github.com/AlvaroBalbin/catena (attribution names only).

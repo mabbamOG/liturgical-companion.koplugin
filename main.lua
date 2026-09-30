@@ -27,8 +27,9 @@ local _ = require("gettext")
 local T = util.template
 
 local INDEX_FILE = "lc-index.json"
--- Years the on-device engine computes (the Lunar New Year table bounds China).
-local YEAR_MIN, YEAR_MAX = 1900, 2200
+-- Years the engine covers: from the first Gregorian year (the 1570 Missal) to
+-- 9999; a fixed Missal edition starts with its own year.
+local YEAR_MIN, YEAR_MAX = 1583, 9999
 
 -- KOReader's JSON decoder represents JSON null with a function sentinel.
 local JSON_NULL = (JSON.util and JSON.util.null) or nil
@@ -167,12 +168,40 @@ function LiturgicalCompanion:getEngine()
     return self._engine
 end
 
+-- Missal edition: "auto" (the edition in force on the date) or an edition key.
+function LiturgicalCompanion:getEdition()
+    return self:getSetting("edition", "auto")
+end
+
+function LiturgicalCompanion:editionInfo(key)
+    local engine = self:getEngine()
+    return engine and engine.edition_info(key or self:getEdition()) or nil
+end
+
+--- First and last selectable year under the current edition setting.
+function LiturgicalCompanion:yearRange()
+    local info = self:getEdition() ~= "auto" and self:editionInfo() or nil
+    return (info and info.min_year) or YEAR_MIN, YEAR_MAX
+end
+
+--- Localized edition name ("Roman Missal of 1962 (Traditional Latin Mass)").
+function LiturgicalCompanion:editionName(key, lang)
+    local index = self:loadIndex() or {}
+    local locales = index.locales or {}
+    local names = ((locales[lang] or {}).missals) or ((locales.en or {}).missals) or {}
+    if key == "1970" then return names["1970"] or "Roman Missal of Paul VI (1970)" end
+    local name = string.format("%s %s", names.prefix or "Roman Missal of", key)
+    if names[key] then name = string.format("%s (%s)", name, names[key]) end
+    return name
+end
+
 function LiturgicalCompanion:getProfiles()
     local index = self:loadIndex()
     if not index then return {} end
     local profiles = {}
+    local first, last = self:yearRange()
     for profile in pairs(index.profile_labels or {}) do
-        profiles[profile] = { years = { YEAR_MIN, YEAR_MAX } }
+        profiles[profile] = { years = { first, last } }
     end
     return profiles
 end
@@ -220,18 +249,21 @@ function LiturgicalCompanion:sortedProfiles()
 end
 
 function LiturgicalCompanion:getYears(_profile)
-    return { YEAR_MIN, YEAR_MAX }
+    local first, last = self:yearRange()
+    return { first, last }
 end
 
 function LiturgicalCompanion:getDay(profile, date)
     local year = tonumber((date or ""):sub(1, 4))
-    if not year or year < YEAR_MIN or year > YEAR_MAX then return nil end
+    local first, last = self:yearRange()
+    if not year or year < first or year > last then return nil end
     local engine = self:getEngine()
     if not engine then return nil end
     self._day_cache = self._day_cache or {}
-    local key = profile .. "/" .. date
+    local edition = self:getEdition()
+    local key = edition .. "/" .. profile .. "/" .. date
     if self._day_cache[key] == nil then
-        local ok, day = pcall(engine.day, engine, profile, date)
+        local ok, day = pcall(engine.resolve, engine, profile, date, edition)
         if not ok then logger.warn("LiturgicalCompanion: cannot compute", key, day) end
         self._day_cache[key] = (ok and day) or false
     end
@@ -437,7 +469,7 @@ function LiturgicalCompanion:renderDay(bundle, profile, date, lang)
         local meta = { localized(locales, lang, "ranks", primary.rank, primary.rank) }
         local colors = joinColors(primary.colors, locales, lang)
         if colors ~= "" then table.insert(meta, colors) end
-        local season = localized(locales, lang, "seasons", day.season, day.season)
+        local season = day.season and localized(locales, lang, "seasons", day.season, day.season)
         if season and season ~= "" then
             local week = tonumber(day.season_week)
             if week then season = string.format("%s %d", season, week) end
@@ -448,6 +480,15 @@ function LiturgicalCompanion:renderDay(bundle, profile, date, lang)
             table.insert(meta, string.format("%s %s", localized(locales, lang, "calendar", "year", "Year"), year))
         end
         line(string.format("<b>%s:</b> %s", esc(localized(locales, lang, "panel", "type", "Type")), esc(table.concat(meta, " · "))))
+        -- Only the older editions name their Missal (the current one is the default).
+        if day.missal and day.missal ~= "1970" then
+            local missal = self:editionName(day.missal, lang)
+            if profile ~= "GR" then
+                local missals = ((locales[lang] or {}).missals) or ((locales.en or {}).missals) or {}
+                missal = missal .. " · " .. (missals.general or "General Roman Calendar")
+            end
+            line(string.format("<b>%s:</b> %s", esc(localized(locales, lang, "panel", "missal", "Missal")), esc(missal)))
+        end
     end
 
     local secondary = {}
@@ -542,7 +583,12 @@ function LiturgicalCompanion:renderDay(bundle, profile, date, lang)
         end
     end
 
-    local office = day.office or {}
+    -- The pre-1970 editions carry no Office of Readings references.
+    if not day.office then
+        block("</body></html>")
+        return table.concat(parts)
+    end
+    local office = day.office
     local author = asString(office.selected_author)
     local title = asString(office.selected_citation_title)
     local locator = asString(office.selected_citation_locator)
@@ -579,8 +625,9 @@ function LiturgicalCompanion:resolveDay(profile, date)
     if self:getDay(profile, date) then return date, nil end
     local year = tonumber(date:sub(1, 4))
     local nearest = nil
-    if year and year < YEAR_MIN then nearest = YEAR_MIN end
-    if year and year > YEAR_MAX then nearest = YEAR_MAX end
+    local first, last = self:yearRange()
+    if year and year < first then nearest = first end
+    if year and year > last then nearest = last end
     if nearest then
         local alternative = string.format("%04d%s", nearest, date:sub(5))
         if self:getDay(profile, alternative) then
@@ -639,12 +686,9 @@ function LiturgicalCompanion:showPanel(text, date, profile)
         {
             {
                 text = GLYPH_GLOBE,
-                callback = function()
-                    -- Close the panel, then open the picker on the next tick so
-                    -- it is not stacked below the still-open panel.
-                    UIManager:close(viewer)
-                    UIManager:scheduleIn(0.2, function() self:showCountryMenu(date, profile) end)
-                end,
+                -- Keep the panel open underneath, like the date picker: closing
+                -- the list returns to it, choosing a country replaces it.
+                callback = function() self:showCountryMenu(date, profile, viewer) end,
             },
             {
                 text = "«",
@@ -681,7 +725,7 @@ function LiturgicalCompanion:showPanel(text, date, profile)
 end
 
 -- Temporary country switch from inside the panel (does not persist).
-function LiturgicalCompanion:showCountryMenu(date, current_profile)
+function LiturgicalCompanion:showCountryMenu(date, current_profile, viewer)
     if self._country_menu then
         UIManager:close(self._country_menu)
         self._country_menu = nil
@@ -702,6 +746,7 @@ function LiturgicalCompanion:showCountryMenu(date, current_profile)
             callback = function()
                 if menu then UIManager:close(menu) end
                 self._country_menu = nil
+                if viewer then UIManager:close(viewer) end
                 self:showDayFor(name, date)
             end,
         })
@@ -726,8 +771,8 @@ function LiturgicalCompanion:pickDateFor(date, viewer)
     local y, m, d = date:match("^(%d%d%d%d)%-(%d%d)%-(%d%d)$")
     UIManager:show(DateTimeWidget:new{
         -- KOReader's picker offers 2021-2525 unless told otherwise.
-        year_min = YEAR_MIN,
-        year_max = YEAR_MAX,
+        year_min = (self:yearRange()),
+        year_max = select(2, self:yearRange()),
         year = tonumber(y),
         month = tonumber(m),
         day = tonumber(d),
@@ -771,8 +816,8 @@ Every day is computed on this device from the liturgical rules and small referen
             self.version or "0.0.0",
             REPOSITORY_URL,
             (#available > 0) and table.concat(available, "; ") or _("none"),
-            YEAR_MIN,
-            YEAR_MAX
+            (self:yearRange()),
+            select(2, self:yearRange())
         ),
     })
 end
@@ -880,6 +925,53 @@ function LiturgicalCompanion:regionMenuItems()
     return items
 end
 
+-- Edition names in the interface language (the menu), as opposed to
+-- editionName(), which follows the calendar's language (the panel).
+local EDITION_MENU_NAMES = {
+    ["1970"] = _("Roman Missal of Paul VI (1970)"),
+    ["1962"] = _("Roman Missal of 1962 (Traditional Latin Mass)"),
+    ["1955"] = _("Roman Missal of 1955 (Pius XII)"),
+    ["1954"] = _("Roman Missal of 1954 (Pius X's rubrics)"),
+    ["1939"] = _("Roman Missal of 1939 (Pius X's rubrics)"),
+    ["1906"] = _("Roman Missal of 1906"),
+    ["1888"] = _("Roman Missal of 1888"),
+    ["1570"] = _("Roman Missal of 1570 (Pius V)"),
+}
+
+function LiturgicalCompanion:editionMenuItems()
+    local engine = self:getEngine()
+    local function choose(key)
+        return function()
+            self:setSetting("edition", key)
+            self._day_cache = {}
+        end
+    end
+    local items = {
+        {
+            text = _("Automatic (by date)"),
+            help_text = _("Use the Missal in force on the day shown: the Roman Missal of Paul VI from Advent 1969, older editions before."),
+            radio = true,
+            checked_func = function() return self:getEdition() == "auto" end,
+            callback = choose("auto"),
+            keep_menu_open = true,
+            separator = true,
+        },
+    }
+    local editions = engine and engine.EDITIONS or {}
+    for i = #editions, 1, -1 do
+        local edition = editions[i]
+        table.insert(items, {
+            text = EDITION_MENU_NAMES[edition.key] or edition.key,
+            help_text = T(_("Always use this edition, from %1 onwards. Older editions follow the General Roman Calendar."), edition.min_year),
+            radio = true,
+            checked_func = function() return self:getEdition() == edition.key end,
+            callback = choose(edition.key),
+            keep_menu_open = true,
+        })
+    end
+    return items
+end
+
 function LiturgicalCompanion:addToMainMenu(menu_items)
     menu_items.liturgical_companion = {
         text = _("Liturgical companion"),
@@ -898,6 +990,10 @@ function LiturgicalCompanion:addToMainMenu(menu_items)
             {
                 text = _("Country"),
                 sub_item_table_func = function() return self:regionMenuItems() end,
+            },
+            {
+                text = _("Missal edition"),
+                sub_item_table_func = function() return self:editionMenuItems() end,
             },
             {
                 text = _("Announce the day when opening a Bible"),

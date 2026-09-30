@@ -489,9 +489,9 @@ function Engine:named_date(year, name)
         return value
     end
     if name == "lunarNewYear" or name == "sundayOnOrAfterLunarNewYear" then
-        local entry = self.lunar[year]
-        if not entry then return nil end
-        local value = D(year, entry[1], entry[2])
+        local index = year - self.lunar.first + 1
+        if index < 1 or index > #self.lunar.offsets then return nil end
+        local value = D(year, 1, 1) + self.lunar.offsets:byte(index) - 48
         if name == "sundayOnOrAfterLunarNewYear" then value = value + (6 - weekday(value)) % 7 end
         return value
     end
@@ -1123,6 +1123,178 @@ function Engine:catena_for(profile, day)
         end
     end
     return entries
+end
+
+-- ---------------------------------------------------------------------------
+-- Pre-1970 Missal editions (tables built from Divinum Officium; engine/old/)
+-- ---------------------------------------------------------------------------
+-- Each edition's year depends only on its type: the date of Easter and whether
+-- it is a leap year. types[key] holds two characters per date: a day record index.
+
+local function is_leap(year)
+    return (year % 4 == 0 and year % 100 ~= 0) or year % 400 == 0
+end
+
+function Engine:old_tables(edition)
+    self._old = self._old or {}
+    if self._old[edition] == nil then
+        local ok, data = pcall(dofile, string.format("%s/old/%s.lua", self.dir, edition))
+        self._old[edition] = ok and data or false
+    end
+    if not self._old_propers then
+        local ok, data = pcall(dofile, self.dir .. "/old/propers.lua")
+        self._old_propers = ok and data or false
+    end
+    return self._old[edition], self._old_propers
+end
+
+local OLD_SEASONS = {
+    "advent", "christmas", "time_after_epiphany", "septuagesima", "lent", "passiontide",
+    "easter", "time_after_pentecost",
+}
+local OLD_COLORS = { w = "white", r = "red", g = "green", v = "violet", b = "black" }
+local OLD_KIND_CODES = { n = "night", d = "dawn", y = "day", ["1"] = "first", ["2"] = "second", ["3"] = "third", h = "chrism", e = "evening" }
+
+-- "rank|colour|season|week|masses|commemorations" -> the day record.
+local function decode_old_day(tables, index)
+    tables._decoded = tables._decoded or {}
+    if tables._decoded[index] then return tables._decoded[index] end
+    local text = tables.days[index]
+    if not text then return nil end
+    local fields = {}
+    for field in (text .. "|"):gmatch("([^|]*)|") do table.insert(fields, field) end
+    local record = {
+        r = tables.ranks[tonumber(fields[1])] or "",
+        k = OLD_COLORS[fields[2]] or "white",
+        s = OLD_SEASONS[tonumber(fields[3]) or 0],
+        w = tonumber(fields[4]),
+        m = {}, c = {},
+    }
+    for mass in (fields[5] or ""):gmatch("[^,]+") do
+        local number, flags, kind = mass:match("^(%d+)([gc]*)@?(.?)$")
+        table.insert(record.m, {
+            p = tonumber(number), g = flags:find("g") ~= nil, c = flags:find("c") ~= nil,
+            t = OLD_KIND_CODES[kind] or "day",
+        })
+    end
+    for id in (fields[6] or ""):gmatch("%d+") do table.insert(record.c, tonumber(id)) end
+    tables._decoded[index] = record
+    return record
+end
+
+local function old_ranges(list)
+    local ranges = {}
+    for _i, r in ipairs(list or {}) do table.insert(ranges, { book = r[1], from = r[2], to = r[3] }) end
+    return ranges
+end
+
+--- The day of ``date`` in a pre-1970 edition (the General Roman Calendar), or nil.
+function Engine:old_day(edition, date)
+    local tables, propers = self:old_tables(edition)
+    local dn = parse_iso(date or "")
+    if not tables or not propers or not dn then return nil end
+    local year, month, mday = civil_from_days(dn)
+    local easter = gregorian_easter(year)
+    local _ey, em, ed = civil_from_days(easter)
+    local key = string.format("%d-%d-%d", em, ed, is_leap(year) and 1 or 0)
+    local codes = tables.types[key]
+    if not codes then return nil end
+    local position = (dn - D(year, 1, 1)) * 2 + 1
+    local c1, c2 = codes:byte(position, position + 1)
+    if not c1 then return nil end
+    local record = decode_old_day(tables, (c1 - 33) * 94 + (c2 - 33) + 1)
+    if not record then return nil end
+    local last = propers.propers[record.m[#record.m].p]
+    local primary = {
+        id = string.format("missal-%s-%d", edition, record.m[#record.m].p),
+        role = "primary", rank = record.r, colors = { record.k },
+        names = propers.names[last.n] or {},
+    }
+    local celebrations = { primary }
+    for i, name_id in ipairs(record.c or {}) do
+        table.insert(celebrations, {
+            id = string.format("missal-%s-c%d-%d", edition, i, name_id),
+            role = "commemoration", rank = "commemoration", colors = {},
+            names = propers.names[name_id] or {},
+        })
+    end
+    local masses = {}
+    for i, m in ipairs(record.m) do
+        local proper = propers.propers[m.p]
+        local readings = {}
+        for _j, lesson in ipairs(proper.l or {}) do
+            table.insert(readings, { slot = "lesson", forms = { { ranges = old_ranges(lesson) } } })
+        end
+        if proper.e and #proper.e > 0 then
+            table.insert(readings, { slot = "epistle", forms = { { ranges = old_ranges(proper.e) } } })
+        end
+        if proper.g and #proper.g > 0 then
+            table.insert(readings, { slot = "gospel", forms = { { ranges = old_ranges(proper.g) } } })
+        end
+        local kind = m.t or "day"
+        table.insert(masses, {
+            id = string.format("%s/%s-%s", date, primary.id, kind),
+            kind = kind, celebration_id = primary.id,
+            flags = { gloria = m.g, creed = m.c, sequences = {} },
+            readings = readings,
+        })
+    end
+    return {
+        date = date, missal = edition,
+        season = record.s, season_week = record.w, cycles = {},
+        celebrations = celebrations, masses = masses, commentaries = {},
+    }
+end
+
+-- Missal editions: key, the first date its rules were in force (automatic
+-- choice), and the first year a reader may select it. Approximate boundaries
+-- are documented in docs/KOREADER_PLUGIN.md.
+Engine.EDITIONS = {
+    { key = "1570", from = "1583-10-15", min_year = 1583 },
+    { key = "1888", from = "1888-01-01", min_year = 1888 },
+    { key = "1906", from = "1906-01-01", min_year = 1906 },
+    { key = "1939", from = "1913-01-01", min_year = 1913 },
+    { key = "1954", from = "1944-01-01", min_year = 1944 },
+    { key = "1955", from = "1956-01-01", min_year = 1956 },
+    { key = "1962", from = "1961-01-01", min_year = 1961 },
+    { key = "1970", from = "1969-11-30", min_year = 1970 },
+}
+Engine.MAX_YEAR = 9999
+
+--- The edition in force on ``date`` ("YYYY-MM-DD"), or nil before the first.
+function Engine.edition_for(date)
+    local chosen
+    for _i, edition in ipairs(Engine.EDITIONS) do
+        if date >= edition.from then chosen = edition.key end
+    end
+    return chosen
+end
+
+function Engine.edition_info(key)
+    for _i, edition in ipairs(Engine.EDITIONS) do
+        if edition.key == key then return edition end
+    end
+    return nil
+end
+
+--- The day under ``edition`` ("auto" picks the edition in force), or nil.
+function Engine:resolve(profile, date, edition)
+    local year = tonumber((date or ""):sub(1, 4))
+    if not year or year > Engine.MAX_YEAR then return nil end
+    local key = edition
+    if not key or key == "auto" then
+        key = Engine.edition_for(date)
+    else
+        local info = Engine.edition_info(key)
+        if not info or year < info.min_year then return nil end
+    end
+    if not key then return nil end
+    if key == "1970" then
+        local day = self:day(profile, date)
+        if day then day.missal = "1970" end
+        return day
+    end
+    return self:old_day(key, date)
 end
 
 -- ---------------------------------------------------------------------------
