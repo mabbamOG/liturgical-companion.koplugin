@@ -16,7 +16,8 @@ Open it on any day to see:
 </p>
 
 It works fully offline, with no account and no network access, and is built for
-e-ink (Kindle, Kobo, PocketBook, Android).
+e-ink (Kindle, Kobo, PocketBook, Android). It can be installed and updated with
+the [AppStore plugin](https://github.com/omer-faruq/appstore.koplugin).
 
 ## Screenshots
 
