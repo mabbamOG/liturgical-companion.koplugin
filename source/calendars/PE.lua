@@ -1,0 +1,110 @@
+-- Calendar of PE: changes to the General Roman Calendar.
+-- Origin: romcal @ 30344b3 (MIT), normalized in parked/epub/data/calendars/pe-overlay.json;
+-- transfers also from parked/epub/data/calendars/transfer-decisions.json.
+-- transfers: solemnities moved to Sunday (epiphany, ascension, corpus_christi).
+-- celebrations: added, or replacing the general celebration with the same id; title: the
+-- calendar's own title for it (tag celebration.<title>), e.g. "..., Patron of Europe".
+return {
+    celebrations = {
+        {
+            id = "finding-of-the-holy-cross",
+            date = "05-03",
+            rank = "feast",
+            precedence = 8,
+            colors = { "white" },
+            office = "exaltation-of-the-holy-cross",
+            readings = "exaltation-of-the-holy-cross",
+        },
+        {
+            id = "our-lady-help-of-christians",
+            date = "05-24",
+            rank = "optional_memorial",
+            precedence = 12,
+            colors = { "white" },
+            commons = { "blessed_virgin_mary" },
+        },
+        {
+            id = "mariana-of-jesus-de-paredes-virgin",
+            date = "05-26",
+            rank = "feast",
+            precedence = 8,
+            colors = { "white" },
+            commons = { "virgins" },
+        },
+        {
+            id = "francis-solanus-priest",
+            date = "07-14",
+            rank = "feast",
+            precedence = 8,
+            colors = { "white" },
+            commons = { "missionaries" },
+        },
+        {
+            id = "our-lady-queen-of-peace",
+            date = "07-28",
+            rank = "feast",
+            precedence = 8,
+            colors = { "white" },
+            commons = { "blessed_virgin_mary" },
+        },
+        {
+            id = "rose-of-lima-virgin",
+            date = "08-23",
+            rank = "solemnity",
+            precedence = 4,
+            colors = { "white" },
+            commons = { "virgins" },
+            saints = { "rose-of-lima-virgin" },
+        },
+        {
+            id = "john-macias-religious",
+            date = "09-18",
+            rank = "feast",
+            precedence = 8,
+            colors = { "white" },
+            commons = { "religious" },
+        },
+        {
+            id = "our-lady-of-mercy",
+            date = "09-24",
+            rank = "optional_memorial",
+            precedence = 12,
+            colors = { "white" },
+            commons = { "blessed_virgin_mary" },
+        },
+        {
+            id = "our-lord-of-miracles",
+            date = "10-28",
+            rank = "feast",
+            precedence = 8,
+            colors = { "white" },
+        },
+        {
+            id = "martin-de-porres-religious",
+            date = "11-03",
+            rank = "solemnity",
+            precedence = 4,
+            colors = { "white" },
+            commons = { "religious" },
+            saints = { "martin-de-porres-religious" },
+        },
+        {
+            id = "our-lady-of-guadalupe",
+            date = "12-12",
+            title = "our-lady-of-guadalupe-patroness-of-the-americas",
+            rank = "feast",
+            precedence = 8,
+            colors = { "white" },
+            commons = { "blessed_virgin_mary" },
+        },
+        {
+            id = "our-lord-jesus-christ-the-eternal-high-priest",
+            date = { fn = "pentecost_sunday", offset = 4 },
+            rank = "feast",
+            precedence = 8,
+            colors = { "white" },
+            office = "weekday",
+        },
+    },
+    transfers = {},
+}

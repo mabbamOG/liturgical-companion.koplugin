@@ -2,10 +2,12 @@ Liturgical Companion for KOReader
 Copyright (c) 2026 Liturgical Companion contributors
 Plugin code: MIT License (see LICENSE).
 
-The plugin ships references only: names of liturgical days and celebrations,
-ranks and colours, and Scripture and patristic citations. It contains no
+The plugin's references-only package ships names of liturgical days and
+celebrations, ranks and colours, and Scripture and patristic citations: no
 Scripture text, no liturgical prose, no saint biographies and no commentary
-excerpts. It is not an official liturgical book.
+excerpts. The "-embedded-content" package adds the embedded texts and pictures listed at
+the end (texts/), each under its own terms. It is not an official liturgical
+book.
 
 Calendar data
 - General Roman and national calendar facts and celebration names are derived
@@ -37,3 +39,17 @@ Pre-1970 Missal editions (1570 to 1962)
 Gospel commentary references
 - Catena Aurea author attributions are derived from the structured English
   Catena at https://github.com/AlvaroBalbin/catena (attribution names only).
+
+Embedded texts and pictures (texts/, in the "-embedded-content" package only)
+- Bible (English): adapted from the World English Bible (Catholic), eBible.org
+  (https://ebible.org/), public domain.
+- Rosary prayers and the Litany of Loreto: vatican.va (English, Italian,
+  French, Spanish, German, Portuguese), reproduced for non-commercial use with
+  their source, as the Holy See's terms allow; Latin: traditional texts,
+  public domain.
+- Pictures (texts/pictures/): images from Wikimedia Commons
+  (https://commons.wikimedia.org/), reduced and converted to greyscale. Each
+  keeps its own licence (public domain, CC0, CC BY or CC BY-SA), named with its
+  author in the credit shown under it and in index.lua; the CC BY-SA pictures
+  remain under CC BY-SA. Every source file is listed in the repository's
+  sources/manifests/saint-pictures-commons.json.

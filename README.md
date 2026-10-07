@@ -46,7 +46,9 @@ the [AppStore plugin](https://github.com/omer-faruq/appstore.koplugin).
 
 **By hand:**
 
-1. Download **`liturgical-companion.koplugin-vX.Y.Z.zip`** from the
+1. Download **`liturgical-companion.koplugin-vX.Y.Z.zip`** (references only) or
+   **`liturgical-companion.koplugin-vX.Y.Z-embedded-content.zip`** (with the embedded texts
+   and pictures) from the
    [latest release](https://github.com/mabbamOG/liturgical-companion.koplugin/releases/latest).
 2. Unzip it into KOReader's `plugins` folder, so you get
    `koreader/plugins/liturgical-companion.koplugin/`.
@@ -60,7 +62,9 @@ Open any book, then go to **Tools → More tools → Liturgical companion**:
 |---|---|
 | **Today's references** | Opens the panel for today |
 | **Choose a date…** | Opens the panel for any date |
-| **Country** | Sets your calendar and its language |
+| **Country** | Sets your calendar |
+| **Missal edition** | Follows the Missal in force on the day, or always one edition |
+| **Language** | The calendar's own language, or any of the eleven below |
 | **Announce the day when opening a Bible** | Optional tappable notice when you open a Bible |
 
 The row at the bottom of the panel:
@@ -80,10 +84,11 @@ Costa Rica, Deutschland, España, France, Guatemala, India, Ireland, Italia,
 México, New Zealand, Österreich, Panamá, Paraguay, Perú, Philippines, Polska,
 Puerto Rico, Scotland, U.S.A., Uruguay, Venezuela.
 
-Languages: English, Latin, Italian, German, French, Spanish, Polish and
-Simplified Chinese.
+Languages: English, Latin, Italian, German, French, Spanish, Portuguese,
+Polish, Russian, and Simplified and Traditional Chinese. Every name (saints,
+feasts, authors, works) is translated in every language.
 
-**Any year from 1583 to 9999.** Nothing is stored per day: the plugin computes
+**Any date from 15 October 1582 to 9999.** Nothing is stored per day: the plugin computes
 each day on your device from the liturgical rules (Easter and the seasons,
 feasts and their precedence, national transfers) and small reference tables
 (the Lectionary, the saints of each calendar, the Office of Readings and the
@@ -107,7 +112,7 @@ Missal edition** you can instead always use one edition, for example the
 | Roman Missal of 1939 (Pius X's rubrics) | 1913–1943 |
 | Roman Missal of 1906 | 1906–1912 |
 | Roman Missal of 1888 | 1888–1905 |
-| Roman Missal of 1570 (Pius V) | 1583–1887 |
+| Roman Missal of 1570 (Pius V) | 15 October 1582–1887 |
 
 The older editions show the General Roman Calendar (no national feasts) and
 have no Office of Readings line. Dates between editions are approximate: each
@@ -115,8 +120,12 @@ reform took effect over months or years.
 
 ## About the data
 
-- **References only.** The plugin shows names and citations: no Scripture
-  text, no liturgical prose, no biographies. Pair it with the Bible you are reading.
+- **References, and optionally texts.** The plain package shows names and
+  citations only; pair it with the Bible you are reading. The "-embedded-content" package
+  adds what is free to share: the English readings (World English Bible,
+  Catholic edition), the Rosary's prayers and the Litany of Loreto, and
+  pictures of the saints from Wikimedia Commons. Each text and picture names
+  its source; the menu can hide them.
 - **Not an official liturgical book.** Check your diocese's Ordo for local feasts and
   transfers. Readings follow the U.S. Lectionary as published by the USCCB;
   Italy and the General Roman Calendar use their own editions where the project
