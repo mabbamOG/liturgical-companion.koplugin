@@ -1,5 +1,26 @@
 # Changelog
 
+## v0.4.27 (2026-10-13)
+
+- Office of Readings: four readings from the Imitation of Christ (Benham's 1874
+  translation) have their text: 182 of 604 in all.
+
+## v0.4.26 (2026-10-13)
+
+- Office of Readings: 10 more readings have a text (178 of 604): Cyril of Alexandria
+  on John, Hippolytus, the Martyrdom of Polycarp, the Didache, Anselm's
+  Proslogium and Teresa's Life, all older public-domain translations. Each
+  text now names its own translation.
+
+## v0.4.25 (2026-10-13)
+
+- Office of Readings: 28 more readings have a text (168 of 604): Augustine on the
+  Psalms, on the Sermon texts, against Faustus and on the First Letter of John, and
+  The City of God; Chrysostom on John and the Letters to the Corinthians;
+  Cyprian; Leo; Athanasius; Origen; Hippolytus; Theophilus of Antioch;
+  Vincent of Lérins. All are older public-domain translations of the whole
+  chapters that contain the reading.
+
 ## v0.4.24 (2026-10-13)
 
 - Martyrology: the leftover notes on obsolete feast dates ("whose feast is
