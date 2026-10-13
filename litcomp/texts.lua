@@ -119,4 +119,37 @@ function Texts:reading(reading, language)
     return { verses = verses, attribution = edition.meta.attribution }
 end
 
+--- An Office of Readings reading's text in a language (texts/office/<language>.lua):
+--- { work, chapters, edition, text } (chapters of an older translation that contain
+--- the reading), or nil.
+function Texts:office(id, language)
+    self.offices = self.offices or {}
+    local data = self.offices[language]
+    if data == nil then
+        data = self.source:find("texts/office/" .. language) or false
+        self.offices[language] = data
+    end
+    return data and id and data.readings[id] or nil
+end
+
+--- The Catena Aurea's texts for a Mass's chain (entry mass.catena) in a
+--- language: { segments = { { author = "<author id>", text }... }, source },
+--- or nil (texts/catena/<language>.lua).
+function Texts:catena(catena, language)
+    self.catenas = self.catenas or {}
+    local data = self.catenas[language]
+    if data == nil then
+        data = self.source:find("texts/catena/" .. language) or false
+        self.catenas[language] = data
+    end
+    if not data or not catena or not catena.passages then return nil end
+    local segments = {}
+    for _i, key in ipairs(catena.passages) do
+        local passage = data.passages[key]
+        for _j, s in ipairs(passage and passage[catena.chain] or {}) do table.insert(segments, s) end
+    end
+    if #segments == 0 then return nil end
+    return { segments = segments, source = data.source }
+end
+
 return Texts

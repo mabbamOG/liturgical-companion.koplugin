@@ -78,6 +78,12 @@ function Litcomp:pictures()
     return self.picture_store
 end
 
+--- The Roman Martyrology (litcomp.martyrology).
+function Litcomp:martyrology()
+    if not self.martyrology_store then self.martyrology_store = require("litcomp.martyrology").new(self.source) end
+    return self.martyrology_store
+end
+
 --- The Rosary (litcomp.rosary).
 function Litcomp:rosary()
     if not self.rosary_store then self.rosary_store = require("litcomp.rosary").new(self.source) end
@@ -90,13 +96,21 @@ end
 --- litany (with the texts, the Litany of Loreto after the Rosary) and pictures
 --- (show the celebrations' pictures; their files are named relative to
 --- litcomp.pictures.DIR, which the caller gives the HTML viewer as its
---- resource directory).
+--- resource directory) and martyrology (the day's Roman Martyrology, with
+--- its texts when texts is set).
 function Litcomp:render(entry, language, options)
     options = options or {}
     local rosary = options.rosary and self:rosary():of_day(entry, options.rosary) or nil
+    -- The current Martyrology goes with the Missal of Paul VI.
+    local martyrology, martyrology_texts
+    if options.martyrology and entry.missal == "missal.1970" then
+        local month, day = entry.date:match("^%d+%-(%d+)%-(%d+)$")
+        martyrology, martyrology_texts = self:martyrology():day(tonumber(month), tonumber(day), language, options.texts)
+    end
     return require("litcomp.render.html").entry(entry, self:i18n(language), {
         texts = options.texts and self:texts() or nil, language = language, open = options.open,
         rosary = rosary, litany = options.litany, pictures = options.pictures and self:pictures() or nil,
+        martyrology = martyrology, martyrology_texts = martyrology_texts,
         prayers = rosary and options.texts and self:rosary():prayers(language) or nil,
     })
 end

@@ -27,7 +27,7 @@ litcomp.i18n; numbers and Scripture locators are plain values.
               catena = { authors = { "author.<id>" }, segments = 3 } },  -- nil without a chain
         },
         office = {                                                -- nil before 1970
-            reading = { author = "author.<id>", work = "work.<id>", locator = "...",
+            reading = { id = "oor-<hash>", author = "author.<id>", work = "work.<id>", locator = "...",
                         basis = "basis.proper" | "basis.common" | "basis.temporal", celebration = "<id>" },
             alternatives = { ... },
         },
@@ -76,7 +76,7 @@ local function office_reading(r)
     if not r then return nil end
     return {
         author = "author." .. r.author, work = "work." .. r.work, locator = r.locator,
-        basis = "basis." .. r.basis, celebration = r.celebration,
+        basis = "basis." .. r.basis, celebration = r.celebration, id = r.id,
     }
 end
 
@@ -105,7 +105,10 @@ function Entry.build(day)
             readings = readings(m.readings) or {}, weekday_readings = m.weekday_readings or nil,
             common = m.common and ("common." .. m.common) or nil,
         }
-        if m.catena then mass.catena = { authors = tags("author.", m.catena.authors), segments = m.catena.segments } end
+        if m.catena then
+            mass.catena = { authors = tags("author.", m.catena.authors), segments = m.catena.segments,
+                chain = m.catena.chain, passages = m.catena.passages }
+        end
         table.insert(entry.masses, mass)
     end
     if day.office then

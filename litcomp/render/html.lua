@@ -11,7 +11,9 @@ ends with its source in a small italic parenthesis.
 
 With pictures (options.pictures, litcomp.pictures), the day's celebration
 shows its picture under its name, and each other celebration with one gets a
-section for it. Image sources are file names relative to the pictures folder.
+section for it; so does each mystery of the Rosary (with its passage, where
+the language has a Bible). Image sources are file names relative to the
+pictures folder.
 
 All words come from the language's translation table (litcomp.i18n); this
 module knows only the layout. The HTML is the small subset KOReader's
@@ -101,6 +103,13 @@ local function toggle(key, is_open, label_html)
         key, is_open and "▾" or "▸", label_html)
 end
 
+-- A prayer's text; a leading "*" (translated by the project, not from the
+-- source book) becomes a small superscript star.
+local function marked(text)
+    if text:sub(1, 1) == "*" then return "<sup>*</sup>" .. esc(text:sub(2)) end
+    return esc(text)
+end
+
 local function source_note(text)
     return string.format('<div style="font-size: 0.8em"><i>(%s)</i></div>', esc(text))
 end
@@ -114,7 +123,8 @@ end
 --- options: { texts = litcomp.texts, language = code, open = { [key] = true },
 --- rosary = a set of mysteries (litcomp.rosary), prayers = the language's
 --- prayers (texts/prayers/), litany = show the Litany of Loreto, pictures =
---- litcomp.pictures }.
+--- litcomp.pictures, martyrology = the day's entries (litcomp.martyrology),
+--- martyrology_texts = the language's Martyrology texts, when shown }.
 function Html.entry(entry, t, options)
     options = options or {}
     local parts = { "<html><body>" }
@@ -212,7 +222,25 @@ function Html.entry(entry, t, options)
                 if r.slot == "slot.gospel" and m.catena and #m.catena.authors > 0 then
                     local authors = {}
                     for _k, a in ipairs(m.catena.authors) do table.insert(authors, t:text(a)) end
-                    label("ui.catena", esc(table.concat(authors, ", ")))
+                    local chain = options.texts and options.texts:catena(m.catena, options.language)
+                    local summary = string.format("<b>%s:</b> %s", esc(t:text("ui.catena")), esc(table.concat(authors, ", ")))
+                    if chain then
+                        local key = string.format("m%dcatena", mi)
+                        local is_open = options.open and options.open[key]
+                        line(toggle(key, is_open, summary))
+                        if is_open then
+                            local out = { '<div style="margin: 0.3em 0 0.5em 0">' }
+                            for _k, s in ipairs(chain.segments) do
+                                local body = esc(s.text):gsub("\n\n", "</div><div style=\"margin: 0.3em 0\">")
+                                table.insert(out, string.format('<div style="margin: 0.3em 0"><b>%s:</b> %s</div>',
+                                    esc(t:text("author." .. s.author)), body))
+                            end
+                            table.insert(out, source_note(chain.source) .. "</div>")
+                            line(table.concat(out))
+                        end
+                    else
+                        line(summary)
+                    end
                 end
             end
         end
@@ -225,9 +253,58 @@ function Html.entry(entry, t, options)
             label("ui.author", esc(t:text(r.author)))
             local citation = t:text(r.work)
             if r.locator and r.locator ~= "" then citation = citation .. " " .. r.locator end
-            label("ui.reading", esc(citation))
+            local text = options.texts and options.texts:office(r.id, options.language)
+            if text then
+                local is_open = options.open and options.open.office
+                line(toggle("office", is_open, string.format("<b>%s:</b> %s", esc(t:text("ui.reading")), esc(citation))))
+                if is_open then
+                    local out = { '<div style="margin: 0.3em 0 0.5em 0">',
+                        "<div><i>" .. esc(t:format("ui.office_text_note", { chapters = text.chapters, work = text.work })) .. "</i></div>" }
+                    for paragraph in (text.text .. "\n\n"):gmatch("(.-)\n\n") do
+                        table.insert(out, '<div style="margin: 0.3em 0">' .. esc(paragraph) .. "</div>")
+                    end
+                    table.insert(out, source_note(text.edition .. ". " .. t:text("ui.public_domain")) .. "</div>")
+                    line(table.concat(out))
+                end
+            else
+                label("ui.reading", esc(citation))
+            end
         else
             label("ui.reading", "—")
+        end
+    end
+
+    if options.martyrology then
+        local list = options.martyrology
+        local open = options.open or {}
+        block(string.format("<h3>%s</h3>", esc(t:text("ui.martyrology"))))
+        line(toggle("martyrology", open.martyrology, esc(t:format("ui.martyrology_count", { count = #list }))))
+        if open.martyrology then
+            local out = { '<div style="margin: 0.3em 0 0.5em 0">' }
+            local translated, wikipedia = false, false
+            for i, e in ipairs(list) do
+                local name = e.name and (e.title and t:format(e.title, { name = e.name }) or e.name) or e.latin
+                local body = ""
+                if e.text then
+                    local mark = ""
+                    if e.from == "mt" then mark, translated = "<sup>*</sup>", true end
+                    body = " " .. mark .. esc(e.text)
+                    if e.from == "wp" then
+                        wikipedia = true
+                        body = body .. string.format(' <span style="font-size: 0.8em"><i>(%s)</i></span>',
+                            esc(t:format("ui.wikipedia_article", { article = e.article })))
+                    end
+                end
+                table.insert(out, string.format('<div style="margin: 0.25em 0">%d. <b>%s</b>%s</div>', i, esc(name), body))
+            end
+            local notes = { t:text("ui.martyrology_source") }
+            if options.martyrology_texts then table.insert(notes, t:text("ui.martyrology_texts")) end
+            if translated then
+                table.insert(notes, t:format("ui.martyrology_translated", { model = options.martyrology_texts.translator }))
+            end
+            if wikipedia then table.insert(notes, t:text("ui.wikipedia_licence")) end
+            table.insert(out, source_note(table.concat(notes, " ")) .. "</div>")
+            line(table.concat(out))
         end
     end
 
@@ -239,10 +316,11 @@ function Html.entry(entry, t, options)
             local reading = { slot = "slot.gospel", numbering = "hebrew", forms = m.forms }
             local label_html = string.format("%d. %s (%s)", i, esc(t:text("rosary." .. m.id)), esc(Html.reading(reading, t)))
             local text = options.texts and options.texts:reading(reading, options.language)
-            if text then
+            local p = options.pictures and options.pictures:of("rosary." .. m.id)
+            if text or p then
                 local key = "rosary" .. i
                 line(toggle(key, open[key], label_html))
-                if open[key] then line(passage(text)) end
+                if open[key] then line((p and picture(p) or "") .. (text and passage(text) or "")) end
             else
                 line(label_html)
             end
@@ -254,7 +332,7 @@ function Html.entry(entry, t, options)
                 local out = { '<div style="margin: 0.3em 0 0.5em 0">' }
                 for _i, p in ipairs(prayers.prayers) do
                     table.insert(out, string.format('<div style="margin: 0.3em 0"><b>%s.</b> %s</div>',
-                        esc(t:text("prayer." .. p.id)), esc(p.text)))
+                        esc(t:text("prayer." .. p.id)), marked(p.text)))
                 end
                 table.insert(out, source_note(prayers.source) .. "</div>")
                 line(table.concat(out))
@@ -264,11 +342,11 @@ function Html.entry(entry, t, options)
                 if open.litany then
                     local out = { '<div style="margin: 0.3em 0 0.5em 0">' }
                     for _i, l in ipairs(prayers.litany.lines) do
-                        local response = l.response and (" <i>" .. esc(l.response) .. "</i>") or ""
-                        table.insert(out, "<div>" .. esc(l.text) .. response .. "</div>")
+                        local response = l.response and (" <i>" .. marked(l.response) .. "</i>") or ""
+                        table.insert(out, "<div>" .. marked(l.text) .. response .. "</div>")
                     end
                     if prayers.litany.prayer then
-                        table.insert(out, '<div style="margin: 0.4em 0">' .. esc(prayers.litany.prayer) .. "</div>")
+                        table.insert(out, '<div style="margin: 0.4em 0">' .. marked(prayers.litany.prayer) .. "</div>")
                     end
                     table.insert(out, source_note(prayers.source) .. "</div>")
                     line(table.concat(out))

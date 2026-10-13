@@ -36,6 +36,13 @@ Pre-1970 Missal editions (1570 to 1962)
   (https://github.com/DivinumOfficium/divinum-officium), Copyright (c) 2026
   Divinum Officium, MIT License. Only these facts are used; no liturgical text.
 
+Roman Martyrology references
+- The entries of the Roman Martyrology (editio altera 2004) by day, with their
+  names in Latin, English and Italian (source/martyrology/), are from the
+  Common Roman Martyrology Eulogy Data Repository (CRMEDR,
+  https://github.com/CatholicOS/crmedr), Catholic Digital Commons Foundation,
+  licensed CC BY-NC-ND 4.0, used unchanged.
+
 Gospel commentary references
 - Catena Aurea author attributions are derived from the structured English
   Catena at https://github.com/AlvaroBalbin/catena (attribution names only).
@@ -43,10 +50,41 @@ Gospel commentary references
 Embedded texts and pictures (texts/, in the "-embedded-content" package only)
 - Bible (English): adapted from the World English Bible (Catholic), eBible.org
   (https://ebible.org/), public domain.
-- Rosary prayers and the Litany of Loreto: vatican.va (English, Italian,
-  French, Spanish, German, Portuguese), reproduced for non-commercial use with
-  their source, as the Holy See's terms allow; Latin: traditional texts,
-  public domain.
+- Bible (Latin): Biblia Sacra Vulgatae editionis (Clementine Vulgate, 1592),
+  eBible.org, public domain (not the Nova Vulgata of today's Lectionarium).
+- Bible (French): adapted from the Sainte Bible néo-Crampon Libre, © 2022
+  Fraternité de Tibériade, CC BY-SA 4.0 (eBible.org): "le Seigneur" is read
+  for "Yahweh", as in the liturgy. The adaptation stays under CC BY-SA 4.0.
+- Bible (German): Die Heilige Schrift des Alten und Neuen Testamentes,
+  übersetzt von Joseph Franz von Allioli, durchgesehen von Augustin Arndt SJ
+  (Regensburg 1914), public domain, in the digital text of
+  https://github.com/AlexBocken/allioli (Unlicense); Romans, Hebrews, 1-2 Kings,
+  Ezra, Malachi 4, Zechariah 14, Esther's additions and the end of Psalm 9,
+  which that text lacks, from the same Bible's PDF (archive.org, "Lord Henfield
+  Edition 2025"): only the Arndt verses are taken.
+- Rosary prayers and the Litany of Loreto: public-domain prayer books (A
+  Manual of Prayers, Baltimore 1889; Catéchisme illustré, Paris 1906;
+  Comtesse de Ségur, 1858; É.-M. Faillon, 1860; El alma con Dios, 1902;
+  Marien-Büchlein, 1895; the Catecismo do Patriarcado for the Portuguese Hail
+  Mary), some transcribed on Wikisource (CC BY-SA). What they lack is
+  translated from the traditional Latin by the AI model Claude Opus 5.5 and
+  marked with a star (*). Latin: traditional texts, public domain. The
+  mysteries' short titles follow vatican.va's "The Holy Rosary".
+- Catena Aurea texts (texts/catena/, English): the Oxford translation edited
+  by John Henry Newman (1841-1845), public domain, from the structured Catena
+  (https://github.com/AlvaroBalbin/catena, MIT).
+- Office of Readings texts (texts/office/, English): older translations of the
+  Fathers' works, public domain, never machine-translated: Ante-Nicene
+  Fathers and Nicene and Post-Nicene Fathers (1885-1899), the Ante-Nicene
+  Christian Library (1870), and the Oxford translation of Chrysostom, as named
+  in each text's own edition line. The chapters that contain the Office's
+  reading are given, not the Office's own (ICEL) wording.
+- Roman Martyrology texts (texts/martyrology/): The Roman Martyrology
+  (Baltimore, 1916) and Martyrologium Romanum (Mechelen, 1913), public
+  domain, as aligned by CatholicOS/martyrology-api (Apache-2.0); their
+  translations into other languages by the AI models Claude Opus 5.5 and Haiku 5.5 (marked
+  *); names from Wikidata (CC0); article leads from Wikipedia (CC BY-SA 4.0),
+  each credited with its article.
 - Pictures (texts/pictures/): images from Wikimedia Commons
   (https://commons.wikimedia.org/), reduced and converted to greyscale. Each
   keeps its own licence (public domain, CC0, CC BY or CC BY-SA), named with its

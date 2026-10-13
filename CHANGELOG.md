@@ -1,5 +1,94 @@
 # Changelog
 
+## v0.4.24 (2026-10-13)
+
+- Martyrology: the leftover notes on obsolete feast dates ("whose feast is
+  kept on the 14th of June") are removed from thirteen more entries, in every
+  language.
+- Bible readings: some verses the Vulgate-numbered editions mapped to the
+  wrong place. Latin and German: Hebrew Ps 16:10 (the Vulgate's 15:10), Ps
+  44:22, Ps 56:11, Micah 5:10, Wisdom 19:21, Joshua 21:38 and 1 Maccabees 1:34
+  had fallen through to another chapter. German: Acts 7 is numbered as the
+  Greek, Isaiah 45:23-25 and Ps 15 and 119 (Vulgate numbers) follow the
+  Lectionary's verses.
+
+## v0.4.22 (2026-10-13)
+
+- Embedded content, German: each Mass reading opens to its text, from the
+  Allioli-Arndt Bible (1914, public domain), in the Vulgate's numbering as
+  the Lectionary is mapped onto it. Every Lectionary citation has its text
+  but one (Jonah 1-2, as in Latin).
+
+## v0.4.21 (2026-10-13)
+
+- Office of Readings texts: the note names the work as a title ("The Epistle
+  of Barnabas"), not in capitals with a final period.
+- Martyrology: the machine translations (Claude) now cover all 1,539
+  entries in Italian, French, Spanish, German, Portuguese, Polish, Russian and
+  Chinese (before, 40-47%); the new ones were made by Claude Haiku 5.5, the
+  earlier ones by Claude Opus 5.5, and the label says so. Five entries whose
+  1916 English was cut short, and the stray dashes ending ten others, are
+  repaired.
+
+## v0.4.19 (2026-10-13)
+
+- Embedded content, English: the Office of Readings' second reading opens to
+  the Father's text for 140 of the 604 readings, in a public-domain
+  translation of 1870-1899 (the chapters that contain the Office's excerpt,
+  so a longer passage).
+
+## v0.4.18 (2026-10-08)
+
+- Embedded content, English: the Catena Aurea under each Gospel opens to its
+  texts, the Fathers' words in Newman's Oxford translation (1841-45, public
+  domain): the longer chain on Sundays and solemnities, the shorter one on
+  weekdays.
+
+## v0.4.17 (2026-10-08)
+
+- Latin readings: two transcription errors of the digital Vulgate are
+  corrected (John 15:4, Acts 12:5).
+
+## v0.4.16 (2026-10-08)
+
+- Embedded content, Latin: each Mass reading opens to its text in the
+  Clementine Vulgate (public domain; the Lectionarium itself uses the Nova
+  Vulgata, which may not be shared), numbered as the Lectionary numbers it.
+
+## v0.4.15 (2026-10-08)
+
+- Embedded content, French: each Mass reading opens to its text, from the
+  Sainte Bible néo-Crampon Libre (CC BY-SA 4.0), with "le Seigneur" for
+  "Yahweh" as the liturgy reads it. Every Lectionary citation has its text but
+  one (Isaiah 38, which this edition renumbers).
+
+## v0.4.14 (2026-10-08)
+
+- **The Roman Martyrology of the day** (current edition, 2004), as a section
+  you tap to open: every saint and blessed it commemorates, in order (4,640
+  entries over the year), named in English, Italian or Latin. With the
+  embedded content, names in the other languages where known, and a short
+  text: the 1916 English or 1913 Latin Martyrology (from before the 2001
+  revision), its translation by an AI model (marked *), or the opening of the
+  Wikipedia article. A menu entry hides the section.
+
+## v0.4.13 (2026-10-07)
+
+- Embedded content: the Rosary's prayers and the Litany of Loreto now come
+  from public-domain prayer books (1858-1906) in English, French, Spanish and
+  German, and the Portuguese Hail Mary from an old catechism; vatican.va's
+  texts, which may not be redistributed, are gone. What the books lack (the
+  Litany's newer invocations, a few prayers, Italian and most of Portuguese)
+  is translated from the Latin by an AI model and marked with a star.
+- Latin Litany: "Fili, Redemptor mundi" appeared twice.
+
+## v0.4.12 (2026-10-07)
+
+- Embedded content: each mystery of the Rosary opens to a painting of it
+  (public domain, credited), with its Gospel passage where the language has a
+  Bible.
+- Picture credits give the work's year, not its photograph's.
+
 ## v0.4.11 (2026-10-07)
 
 - The package with the embedded texts and pictures is now called
