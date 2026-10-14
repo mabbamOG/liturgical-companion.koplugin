@@ -1,5 +1,23 @@
 # Changelog
 
+## v0.4.34 (2026-10-14)
+
+- The globe chooses country and language together again: a country picked from
+  the panel shows its day in that country's language, even when Language in the
+  menu is set to another (the setting itself is left alone). « », Day and the
+  section toggles keep it.
+
+## v0.4.33 (2026-10-14)
+
+- Martyrology: every translation (eight languages, 1,539 entries each) is redone
+  by Claude Opus 5.5; the panel names that model only.
+- Russian: the Missal editions' names are translated (they read in English).
+
+## v0.4.31 (2026-10-14)
+
+- Bible readings in Polish: the Wujek Bible (1923 edition, public domain), without
+  the deuterocanonical books, whose readings show their citations only.
+
 ## v0.4.30 (2026-10-14)
 
 - Bible readings in Russian (Synodal translation) and Chinese (Union Version,

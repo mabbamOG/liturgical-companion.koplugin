@@ -27,12 +27,13 @@ local function shift(date, days)
 end
 
 --- Shows a calendar's day (the saved calendar is not changed). state: the
---- sections shown open and the page, kept when a section is toggled.
+--- sections shown open and the page, kept when a section is toggled, and the
+--- language of this view (a country chosen from the globe brings its own).
 function Panel:show(calendar, date, state)
     local plugin = self.plugin
     local settings = plugin.settings
     state = state or { open = {} }
-    local view, message = Day.view(plugin.lc, calendar, date, settings:get("missal"), settings:get("language"),
+    local view, message = Day.view(plugin.lc, calendar, date, settings:get("missal"), state.language or settings:get("language"),
         { texts = settings:get("texts"), open = state.open, litany = settings:get("litany"),
           rosary = settings:get("rosary") ~= "off" and settings:get("rosary") or nil,
           pictures = settings:get("pictures"), martyrology = settings:get("martyrology") })
@@ -47,7 +48,7 @@ function Panel:show(calendar, date, state)
     local viewer
     local function go(target_calendar, target_date)
         UIManager:close(viewer)
-        self:show(target_calendar, target_date)
+        self:show(target_calendar, target_date, { open = {}, language = state.language })
     end
     viewer = TextViewer:new{
         title = _("Liturgical companion"),
@@ -61,7 +62,7 @@ function Panel:show(calendar, date, state)
             -- closing them returns to it, choosing replaces it.
             { text = Panel.GLYPH_GLOBE, callback = function() self:choose_calendar(view.date, view.calendar, viewer) end },
             { text = "«", callback = function() go(view.calendar, shift(view.date, -1)) end },
-            { text = _("Day"), callback = function() self:choose_date(view.date, viewer, view.calendar) end },
+            { text = _("Day"), callback = function() self:choose_date(view.date, viewer, view.calendar, state.language) end },
             { text = "»", callback = function() go(view.calendar, shift(view.date, 1)) end },
             { text = _("Close"), callback = function() UIManager:close(viewer) end },
         } },
@@ -77,7 +78,7 @@ function Panel:show(calendar, date, state)
             for k, v in pairs(state.open) do open[k] = v end
             open[key] = not open[key] or nil
             UIManager:close(viewer)
-            self:show(calendar, date, { open = open, page = box.page_number })
+            self:show(calendar, date, { open = open, page = box.page_number, language = state.language })
         end
     end
     self.viewer = viewer
@@ -89,6 +90,8 @@ function Panel:show(calendar, date, state)
     end
 end
 
+--- The country list over the panel: a country brings its own language (its calendar's), whatever the Language
+--- setting says; the saved setting is left as it is.
 function Panel:choose_calendar(date, current, viewer)
     local Menu = require("ui/widget/menu")
     local Screen = require("device").screen
@@ -105,7 +108,7 @@ function Panel:choose_calendar(date, current, viewer)
             callback = function()
                 UIManager:close(menu)
                 if viewer then UIManager:close(viewer) end
-                self:show(key, date)
+                self:show(key, date, { open = {}, language = "auto" })
             end,
         })
     end
@@ -122,7 +125,7 @@ function Panel:choose_calendar(date, current, viewer)
     UIManager:show(menu)
 end
 
-function Panel:choose_date(date, viewer, calendar)
+function Panel:choose_date(date, viewer, calendar, language)
     local DateTimeWidget = require("ui/widget/datetimewidget")
     local plugin = self.plugin
     local first, last = plugin:year_range()
@@ -138,7 +141,8 @@ function Panel:choose_date(date, viewer, calendar)
         callback = function(time)
             -- A Cancel leaves the panel; a date replaces it.
             if viewer then UIManager:close(viewer) end
-            self:show(calendar or plugin.settings:get("calendar"), string.format("%04d-%02d-%02d", time.year, time.month, time.day))
+            self:show(calendar or plugin.settings:get("calendar"), string.format("%04d-%02d-%02d", time.year, time.month, time.day),
+                { open = {}, language = language })
         end,
     })
 end

@@ -76,6 +76,10 @@ Embedded texts and pictures (texts/, in the "-embedded-content" package only)
 - Bible (Chinese): the Chinese Union Version with new punctuation (1919/1989),
   eBible.org, public domain, in simplified and traditional script; a
   Protestant translation without the deuterocanonical books.
+- Bible (Polish): the Wujek Bible (Jakub Wujek, 1599; the 1923 edition, in
+  19th-century spelling), public domain, from the Wikisource transcription
+  (CC BY-SA 4.0, https://pl.wikisource.org/wiki/Biblia_Wujka_(1923)); without
+  the deuterocanonical books.
 - Rosary prayers and the Litany of Loreto: public-domain prayer books (A
   Manual of Prayers, Baltimore 1889; Catéchisme illustré, Paris 1906;
   Comtesse de Ségur, 1858; É.-M. Faillon, 1860; El alma con Dios, 1902;
@@ -97,7 +101,7 @@ Embedded texts and pictures (texts/, in the "-embedded-content" package only)
 - Roman Martyrology texts (texts/martyrology/): The Roman Martyrology
   (Baltimore, 1916) and Martyrologium Romanum (Mechelen, 1913), public
   domain, as aligned by CatholicOS/martyrology-api (Apache-2.0); their
-  translations into other languages by the AI models Claude Opus 5.5 and Haiku 5.5 (marked
+  translations into other languages by the AI model Claude Opus 5.5 (marked
   *); names from Wikidata (CC0); article leads from Wikipedia (CC BY-SA 4.0),
   each credited with its article.
 - Pictures (texts/pictures/): images from Wikimedia Commons
