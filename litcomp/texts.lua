@@ -92,7 +92,7 @@ local function range_verses(self, edition, range, numbering)
             local chapter = data[ec]
             if not chapter or ev > last_verse(chapter) then return nil end
             local key = ec * 1000 + ev
-            if chapter[ev] and not seen[key] then
+            if chapter[ev] and chapter[ev] ~= "" and not seen[key] then
                 seen[key] = true
                 -- Numbered as the Lectionary numbers it, like the citation above it.
                 table.insert(out, { chapter = c, verse = v, text = chapter[ev] })

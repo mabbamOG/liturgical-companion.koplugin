@@ -56,6 +56,6 @@ return {
     },
     -- The Bible edition (texts/bible/<id>/) whose text a language's panel shows
     -- under each reading; a language without one shows citations only.
-    bibles = { en = "en-webc", fr = "fr-ncl", la = "la-vulc", de = "de-allioli" },
+    bibles = { en = "en-webc", fr = "fr-ncl", la = "la-vulc", de = "de-allioli", it = "it-martini", pt = "pt-bsl", es = "es-blm", ru = "ru-syn", ["zh-Hans"] = "zh-Hans", ["zh-Hant"] = "zh-Hant" },
     languages = { "en", "la", "it", "de", "fr", "es", "pt", "pl", "ru", "zh-Hans", "zh-Hant" },
 }

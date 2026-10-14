@@ -1,5 +1,26 @@
 # Changelog
 
+## v0.4.30 (2026-10-14)
+
+- Bible readings in Russian (Synodal translation) and Chinese (Union Version,
+  simplified and traditional), public domain. Neither has the deuterocanonical
+  books, so those readings (Tobit, Judith, Wisdom, Sirach, Baruch, Maccabees,
+  Daniel 3:24-90 and 13-14) show their citations only.
+
+## v0.4.29 (2026-10-14)
+
+- Bible readings in Portuguese (Bíblia Portuguesa Mundial) and Spanish (Santa
+  Biblia libre para el mundo), both public domain and complete for the
+  Lectionary except Greek Esther. Spanish reads "el Señor" for "Yahvé".
+
+## v0.4.28 (2026-10-14)
+
+- Bible readings in Italian: Martini's Bible (1769-81, public domain), every
+  reading of the Lectionary except Jonah 1-2. The psalms are re-cut at the
+  Vulgate's verses, since Martini divides them differently.
+- Latin: Psalm 1:1 and Job 1:1 carried a medieval gloss from the source text
+  ("+ 1.1 Incipit AUG. ..."); it is removed.
+
 ## v0.4.27 (2026-10-13)
 
 - Office of Readings: four readings from the Imitation of Christ (Benham's 1874
