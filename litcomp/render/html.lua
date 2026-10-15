@@ -259,11 +259,12 @@ function Html.entry(entry, t, options)
                 line(toggle("office", is_open, string.format("<b>%s:</b> %s", esc(t:text("ui.reading")), esc(citation))))
                 if is_open then
                     local out = { '<div style="margin: 0.3em 0 0.5em 0">',
-                        "<div><i>" .. esc(t:format("ui.office_text_note", { chapters = text.chapters, work = text.work })) .. "</i></div>" }
+                        "<div><i>" .. esc(t:format("ui.office_text_note" .. (text.machine and "_machine" or "") .. (text.chapters == "all" and "_whole" or ""),
+                            { chapters = text.chapters, work = text.work })) .. "</i></div>" }
                     for paragraph in (text.text .. "\n\n"):gmatch("(.-)\n\n") do
                         table.insert(out, '<div style="margin: 0.3em 0">' .. esc(paragraph) .. "</div>")
                     end
-                    table.insert(out, source_note(text.edition .. ". " .. t:text("ui.public_domain")) .. "</div>")
+                    table.insert(out, source_note(text.machine and text.edition or (text.edition .. ". " .. t:text("ui.public_domain"))) .. "</div>")
                     line(table.concat(out))
                 end
             else

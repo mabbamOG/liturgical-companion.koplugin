@@ -2768,6 +2768,9 @@ return {
     ["ui.obligation"] = "Gebotener Feiertag", -- draft
     ["ui.office"] = "Lesehore — zweite Lesung", -- locale
     ["ui.office_text_note"] = "Kapitel {chapters} von {work}, die die Lesung enthalten (eine ältere Übersetzung, daher ein längerer Abschnitt als der des Stundengebets).", -- draft
+    ["ui.office_text_note_whole"] = "{work}, das ganze Stück, das die Lesung enthält (eine ältere Übersetzung, daher ein längerer Abschnitt als der des Stundengebets).", -- draft
+    ["ui.office_text_note_machine"] = "Abschnitte {chapters} von {work}, von einem KI-Modell aus dem Lateinischen übersetzt (ein längerer Abschnitt als der des Stundengebets).", -- draft
+    ["ui.office_text_note_machine_whole"] = "{work}: das ganze Stück, das die Lesung enthält, von einem KI-Modell aus dem Lateinischen übersetzt (ein längerer Abschnitt als der des Stundengebets).", -- draft
     ["ui.or"] = " oder ", -- draft
     ["ui.proper_solemnity"] = "In den ihm geweihten Kirchen, wo er Hauptpatron ist, und in seiner Ordensfamilie.", -- draft
     ["ui.public_domain"] = "Gemeinfrei.", -- draft

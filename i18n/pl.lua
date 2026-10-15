@@ -2768,6 +2768,9 @@ return {
     ["ui.obligation"] = "Święto nakazane", -- draft
     ["ui.office"] = "Godzina Czytań — drugie czytanie", -- locale
     ["ui.office_text_note"] = "Rozdziały {chapters} dzieła {work}, które zawierają czytanie (starszy przekład, więc fragment dłuższy niż w Liturgii godzin).", -- draft
+    ["ui.office_text_note_whole"] = "{work}, cały utwór zawierający czytanie (starszy przekład, więc fragment dłuższy niż w Liturgii godzin).", -- draft
+    ["ui.office_text_note_machine"] = "Paragrafy {chapters} dzieła {work}, przetłumaczone z łaciny przez model SI (fragment dłuższy niż w Liturgii godzin).", -- draft
+    ["ui.office_text_note_machine_whole"] = "{work}: cały utwór zawierający czytanie, przetłumaczony z łaciny przez model SI (fragment dłuższy niż w Liturgii godzin).", -- draft
     ["ui.or"] = " lub ", -- draft
     ["ui.proper_solemnity"] = "W kościołach jemu poświęconych, tam gdzie jest głównym patronem, i w jego rodzinie zakonnej.", -- draft
     ["ui.public_domain"] = "Domena publiczna.", -- draft

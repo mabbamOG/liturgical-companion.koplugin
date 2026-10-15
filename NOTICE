@@ -92,12 +92,16 @@ Embedded texts and pictures (texts/, in the "-embedded-content" package only)
   by John Henry Newman (1841-1845), public domain, from the structured Catena
   (https://github.com/AlvaroBalbin/catena, MIT).
 - Office of Readings texts (texts/office/, English): older translations of the
-  Fathers' works, public domain, never machine-translated: Ante-Nicene
+  Fathers' works, public domain: Ante-Nicene
   Fathers and Nicene and Post-Nicene Fathers (1885-1899), the Ante-Nicene
   Christian Library (1870), and the Oxford translation of Chrysostom, as named
   in each text's own edition line (transcriptions by Wikisource, the
   Christian Classics Ethereal Library, tertullian.org and Project Gutenberg). The chapters that contain the Office's
-  reading are given, not the Office's own (ICEL) wording.
+  reading are given, not the Office's own (ICEL) wording. Readings of Latin
+  Fathers with no free English translation are the Latin of Migne's
+  Patrologia Latina (Paris, 1844-1865, public domain, via the Internet
+  Archive's edition) translated into English by the AI model Claude Opus 5.5;
+  each such reading says so in its own source line.
 - Roman Martyrology texts (texts/martyrology/): The Roman Martyrology
   (Baltimore, 1916) and Martyrologium Romanum (Mechelen, 1913), public
   domain, as aligned by CatholicOS/martyrology-api (Apache-2.0); their

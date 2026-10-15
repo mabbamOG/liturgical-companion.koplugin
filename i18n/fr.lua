@@ -2768,6 +2768,9 @@ return {
     ["ui.obligation"] = "Fête d'obligation", -- draft
     ["ui.office"] = "Office des lectures — seconde lecture", -- locale
     ["ui.office_text_note"] = "Chapitres {chapters} de {work}, qui contiennent la lecture (une traduction plus ancienne, donc un passage plus long que celui de l'Office).", -- draft
+    ["ui.office_text_note_whole"] = "{work}, le morceau entier qui contient la lecture (une traduction plus ancienne, donc un passage plus long que celui de l'Office).", -- draft
+    ["ui.office_text_note_machine"] = "Paragraphes {chapters} de {work}, traduits du latin par un modèle d'IA (un passage plus long que celui de l'Office).", -- draft
+    ["ui.office_text_note_machine_whole"] = "{work} : tout le morceau qui contient la lecture, traduit du latin par un modèle d'IA (un passage plus long que celui de l'Office).", -- draft
     ["ui.or"] = " ou ", -- draft
     ["ui.proper_solemnity"] = "Dans les églises qui lui sont dédiées, là où il est patron principal, et dans sa famille religieuse.", -- draft
     ["ui.public_domain"] = "Domaine public.", -- draft

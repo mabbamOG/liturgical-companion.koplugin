@@ -2768,6 +2768,9 @@ return {
     ["ui.obligation"] = "当守瞻礼", -- draft
     ["ui.office"] = "诵读日课——第二篇读经", -- locale
     ["ui.office_text_note"] = "{work} 第 {chapters} 章，包含本日读经（较早的译本，因此段落比日课经所载更长）。", -- draft
+    ["ui.office_text_note_whole"] = "{work}，包含本日读经的全文（较早的译本，因此段落比日课经所载更长）。", -- draft
+    ["ui.office_text_note_machine"] = "{work} 第 {chapters} 节，由 AI 模型从拉丁文译出（段落比日课经所载更长）。", -- draft
+    ["ui.office_text_note_machine_whole"] = "{work}：包含本日读经的全文，由 AI 模型从拉丁文译出（段落比日课经所载更长）。", -- draft
     ["ui.or"] = "或", -- draft
     ["ui.proper_solemnity"] = "在奉献给该圣人的圣堂、以其为主保之地，以及其修会中。", -- draft
     ["ui.public_domain"] = "公有领域。", -- draft

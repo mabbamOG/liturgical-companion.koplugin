@@ -1,5 +1,27 @@
 # Changelog
 
+## v0.4.37 (2026-10-15)
+
+- Office of Readings in English: 299 of 604 readings (14 more Latin Fathers:
+  Ambrose, Gregory, Augustine, Jerome, Bruno and others, from Migne's Latin,
+  translated by Claude Opus 5.5 and marked as such).
+
+## v0.4.36 (2026-10-15)
+
+- Office of Readings in English: 285 of 604 readings now have a text (94 more).
+  The new ones are Latin Fathers (Augustine's sermons, Gregory, Leo, Bernard,
+  Ambrose, Hilary, Chrysologus, Columban and others) whose free English
+  translations do not exist: the Latin of Migne's Patrologia (public domain) is
+  translated into English by the AI model Claude Opus 5.5, and each such reading
+  says so in its note and source line.
+
+## v0.4.35 (2026-10-14)
+
+- Office of Readings in English: 191 of 604 readings now have a public-domain text
+  (Tertullian, Athanasius, more of Cyprian, Chrysostom and Leo). Where the Office
+  numbers the sections after another edition, a short piece is given whole, and
+  says so in its note.
+
 ## v0.4.34 (2026-10-14)
 
 - The globe chooses country and language together again: a country picked from

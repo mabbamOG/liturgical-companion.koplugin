@@ -2768,6 +2768,9 @@ return {
     ["ui.obligation"] = "Festa di precetto", -- draft
     ["ui.office"] = "Ufficio delle letture — seconda lettura", -- locale
     ["ui.office_text_note"] = "Capitoli {chapters} di {work}, che contengono la lettura (una traduzione più antica, quindi un brano più lungo di quello dell'Ufficio).", -- draft
+    ["ui.office_text_note_whole"] = "{work}, l'intero brano che contiene la lettura (una traduzione più antica, quindi un brano più lungo di quello dell'Ufficio).", -- draft
+    ["ui.office_text_note_machine"] = "Paragrafi {chapters} di {work}, tradotti dal latino da un modello di IA (un brano più lungo di quello dell'Ufficio).", -- draft
+    ["ui.office_text_note_machine_whole"] = "{work}: l'intero brano che contiene la lettura, tradotto dal latino da un modello di IA (un brano più lungo di quello dell'Ufficio).", -- draft
     ["ui.or"] = " o ", -- draft
     ["ui.proper_solemnity"] = "Nelle chiese a esso dedicate, dove è patrono principale e nella sua famiglia religiosa.", -- draft
     ["ui.public_domain"] = "Pubblico dominio.", -- draft

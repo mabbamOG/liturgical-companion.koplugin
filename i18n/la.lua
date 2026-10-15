@@ -2768,6 +2768,9 @@ return {
     ["ui.obligation"] = "Dies festus de praecepto", -- draft
     ["ui.office"] = "Officium lectionis — lectio altera", -- locale
     ["ui.office_text_note"] = "Capita {chapters} operis {work}, quae lectionem continent (versio antiquior, itaque locus longior quam in Officio).", -- draft
+    ["ui.office_text_note_whole"] = "{work}, totum opus quod lectionem continet (versio antiquior, itaque locus longior quam in Officio).", -- draft
+    ["ui.office_text_note_machine"] = "Sectiones {chapters} operis {work}, a exemplari AI e Latino in Anglicum versae (locus longior quam in Officio).", -- draft
+    ["ui.office_text_note_machine_whole"] = "{work}: totum opus quod lectionem continet, a exemplari AI e Latino in Anglicum versum (locus longior quam in Officio).", -- draft
     ["ui.or"] = " vel ", -- draft
     ["ui.proper_solemnity"] = "In ecclesiis ei dicatis, ubi est patronus principalis, et in eius familia religiosa.", -- draft
     ["ui.public_domain"] = "Dominium publicum.", -- draft
