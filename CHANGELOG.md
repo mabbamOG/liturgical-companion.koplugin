@@ -1,5 +1,14 @@
 # Changelog
 
+## v0.4.38 (2026-10-16)
+
+- Office of Readings in English: 319 of 604 readings (20 more). Public-domain
+  English (Ante-Nicene and Nicene Fathers; the Rule of Benedict; the
+  Autobiography of Ignatius): Ephraim, Hippolytus, Eusebius, Justin, Perpetua,
+  Chrysostom, Benedict, Ignatius. From Migne's Latin, translated by Claude
+  Opus 5.5 and marked as such: more Ambrose, Fulgentius, Zeno, Bernard,
+  Augustine (Confessions 1).
+
 ## v0.4.37 (2026-10-15)
 
 - Office of Readings in English: 299 of 604 readings (14 more Latin Fathers:
