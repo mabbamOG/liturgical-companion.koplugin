@@ -125,6 +125,16 @@ end
 --- prayers (texts/prayers/), litany = show the Litany of Loreto, pictures =
 --- litcomp.pictures, martyrology = the day's entries (litcomp.martyrology),
 --- martyrology_texts = the language's Martyrology texts, when shown }.
+--- The key of the note that opens an Office reading's text: PD English or an AI translation (from the Latin, or
+--- from another original language), of the whole piece, a passage, or numbered sections.
+local function note_key(text)
+    local suffix = text.chapters == "all" and "_whole" or text.chapters == "passage" and "_passage" or ""
+    if text.machine and text.from and text.from ~= "la" then
+        return "ui.office_text_note_machine_original"
+    end
+    return "ui.office_text_note" .. (text.machine and "_machine" or "") .. suffix
+end
+
 function Html.entry(entry, t, options)
     options = options or {}
     local parts = { "<html><body>" }
@@ -259,8 +269,7 @@ function Html.entry(entry, t, options)
                 line(toggle("office", is_open, string.format("<b>%s:</b> %s", esc(t:text("ui.reading")), esc(citation))))
                 if is_open then
                     local out = { '<div style="margin: 0.3em 0 0.5em 0">',
-                        "<div><i>" .. esc(t:format("ui.office_text_note" .. (text.machine and "_machine" or "") .. (text.chapters == "all" and "_whole" or ""),
-                            { chapters = text.chapters, work = text.work })) .. "</i></div>" }
+                        "<div><i>" .. esc(t:format(note_key(text), { chapters = text.chapters, work = text.work })) .. "</i></div>" }
                     for paragraph in (text.text .. "\n\n"):gmatch("(.-)\n\n") do
                         table.insert(out, '<div style="margin: 0.3em 0">' .. esc(paragraph) .. "</div>")
                     end

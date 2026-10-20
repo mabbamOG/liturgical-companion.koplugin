@@ -2771,6 +2771,8 @@ return {
     ["ui.office_text_note_whole"] = "{work}, the whole piece that contains the reading (an older translation, so a longer passage than the Office's).", -- draft
     ["ui.office_text_note_machine"] = "Sections {chapters} of {work}, translated from the Latin by an AI model (a longer passage than the Office's).", -- draft
     ["ui.office_text_note_machine_whole"] = "{work}: the whole piece that contains the reading, translated from the Latin by an AI model (a longer passage than the Office's).", -- draft
+    ["ui.office_text_note_passage"] = "A passage of {work} that contains the reading (an older translation, so its extent may differ from the Office's).", -- draft
+    ["ui.office_text_note_machine_original"] = "{work}: translated from the original language by an AI model (a longer passage than the Office's).", -- draft
     ["ui.or"] = " or ", -- draft
     ["ui.proper_solemnity"] = "In churches dedicated to it, where it is the principal patron, and in its religious family.", -- draft
     ["ui.public_domain"] = "Public domain.", -- draft

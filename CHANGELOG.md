@@ -1,5 +1,16 @@
 # Changelog
 
+## v0.4.39 (2026-10-20)
+
+- Office of Readings in English: 368 of 604 readings (49 more).
+  - Public-domain English: Cyprian's letters, Cyril of Jerusalem, John of the Cross (Lewis), Teresa (Stanbrook),
+    Catherine of Siena (Thorold), Thérèse (Taylor), Francis de Sales, Alphonsus Liguori, Gertrude, Francis Xavier,
+    Francis of Assisi, Aloysius Gonzaga, Thomas More and the ancient homily (2 Clement) of the 32nd week. Scanned
+    texts were corrected for scanning errors by Claude Opus 5.5.
+  - Translated by Claude Opus 5.5 and marked as such: more Latin Fathers (Leo, Aelred, Anselm, Gregory, Fulgentius,
+    Bede and others) and, read from page images of Migne's Greek, Gregory of Nyssa and Chrysostom.
+- New notes for a passage of a work and for translations from other original languages (all 11 languages, drafts).
+
 ## v0.4.38 (2026-10-16)
 
 - Office of Readings in English: 319 of 604 readings (20 more). Public-domain

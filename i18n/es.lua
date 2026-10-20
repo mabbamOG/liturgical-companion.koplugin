@@ -2771,6 +2771,8 @@ return {
     ["ui.office_text_note_whole"] = "{work}, la pieza entera que contiene la lectura (una traducción más antigua, por lo que el pasaje es más largo que el del Oficio).", -- draft
     ["ui.office_text_note_machine"] = "Párrafos {chapters} de {work}, traducidos del latín por un modelo de IA (un pasaje más largo que el del Oficio).", -- draft
     ["ui.office_text_note_machine_whole"] = "{work}: la pieza entera que contiene la lectura, traducida del latín por un modelo de IA (un pasaje más largo que el del Oficio).", -- draft
+    ["ui.office_text_note_passage"] = "Un pasaje de {work} que contiene la lectura (una traducción más antigua, por lo que su extensión puede diferir de la del Oficio).", -- draft
+    ["ui.office_text_note_machine_original"] = "{work}: traducido de la lengua original por un modelo de IA (un pasaje más largo que el del Oficio).", -- draft
     ["ui.or"] = " o ", -- draft
     ["ui.proper_solemnity"] = "En las iglesias a él dedicadas, donde es patrono principal y en su familia religiosa.", -- draft
     ["ui.public_domain"] = "Dominio público.", -- draft
