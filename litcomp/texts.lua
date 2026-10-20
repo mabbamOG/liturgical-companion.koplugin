@@ -8,6 +8,10 @@ book ([chapter][verse] = text; "\n" starts a poetic line, a leading "¶" a
 paragraph) and versification.lua, which maps the Lectionary's numbering (the
 original Hebrew/Greek one) onto the edition's where they differ.
 
+The Office of Readings and the Catena Aurea (texts/office/, texts/catena/) and the Rosary
+prayers (texts/prayers/) are in the languages that have a file; any other language
+shows the English one, and the panel says so (ui.text_in_english).
+
 A passage is all or nothing: if any part of a citation cannot be found, the
 reading has no text rather than a partial or misplaced one.
 ]]
@@ -119,29 +123,37 @@ function Texts:reading(reading, language)
     return { verses = verses, attribution = edition.meta.attribution }
 end
 
---- An Office of Readings reading's text in a language (texts/office/<language>.lua):
---- { work, chapters, edition, text } (chapters of an older translation that contain
---- the reading), or nil.
-function Texts:office(id, language)
-    self.offices = self.offices or {}
-    local data = self.offices[language]
-    if data == nil then
-        data = self.source:find("texts/office/" .. language) or false
-        self.offices[language] = data
+--- The embedded file of a kind ("office", "catena") for a language, else English's:
+--- the data and the language it is in, or nil.
+local function embedded(self, kind, language)
+    self.files = self.files or {}
+    for _i, code in ipairs(language == "en" and { "en" } or { language, "en" }) do
+        local key = kind .. "/" .. code
+        local data = self.files[key]
+        if data == nil then
+            data = self.source:find("texts/" .. key) or false
+            self.files[key] = data
+        end
+        if data then return data, code end
     end
-    return data and id and data.readings[id] or nil
+    return nil
+end
+
+--- An Office of Readings reading's text in a language (texts/office/<language>.lua; English
+--- where the language has none, then `language` is "en"):
+--- { work, chapters, edition, text, language }, or nil.
+function Texts:office(id, language)
+    local data, code = embedded(self, "office", language)
+    local text = data and id and data.readings[id]
+    if not text then return nil end
+    return setmetatable({ language = code }, { __index = text })
 end
 
 --- The Catena Aurea's texts for a Mass's chain (entry mass.catena) in a
---- language: { segments = { { author = "<author id>", text }... }, source },
---- or nil (texts/catena/<language>.lua).
+--- language: { segments = { { author = "<author id>", text }... }, source, language },
+--- or nil (texts/catena/<language>.lua; English where the language has none).
 function Texts:catena(catena, language)
-    self.catenas = self.catenas or {}
-    local data = self.catenas[language]
-    if data == nil then
-        data = self.source:find("texts/catena/" .. language) or false
-        self.catenas[language] = data
-    end
+    local data, code = embedded(self, "catena", language)
     if not data or not catena or not catena.passages then return nil end
     local segments = {}
     for _i, key in ipairs(catena.passages) do
@@ -149,7 +161,7 @@ function Texts:catena(catena, language)
         for _j, s in ipairs(passage and passage[catena.chain] or {}) do table.insert(segments, s) end
     end
     if #segments == 0 then return nil end
-    return { segments = segments, source = data.source }
+    return { segments = segments, source = data.source, language = code }
 end
 
 return Texts

@@ -2772,6 +2772,7 @@ return {
     ["ui.office_text_note_machine"] = "Abschnitte {chapters} von {work}, von einem KI-Modell aus dem Lateinischen übersetzt (ein längerer Abschnitt als der des Stundengebets).", -- draft
     ["ui.office_text_note_machine_whole"] = "{work}: das ganze Stück, das die Lesung enthält, von einem KI-Modell aus dem Lateinischen übersetzt (ein längerer Abschnitt als der des Stundengebets).", -- draft
     ["ui.office_text_note_passage"] = "Ein Abschnitt aus {work}, der die Lesung enthält (eine ältere Übersetzung, daher kann der Umfang vom Stundengebet abweichen).", -- draft
+    ["ui.text_in_english"] = "In deiner Sprache noch nicht verfügbar: auf Englisch angezeigt.", -- draft
     ["ui.office_text_note_machine_original"] = "{work}: von einem KI-Modell aus der Originalsprache übersetzt (ein längerer Abschnitt als der des Stundengebets).", -- draft
     ["ui.or"] = " oder ", -- draft
     ["ui.proper_solemnity"] = "In den ihm geweihten Kirchen, wo er Hauptpatron ist, und in seiner Ordensfamilie.", -- draft

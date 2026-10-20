@@ -120,6 +120,12 @@ local function picture(p)
         esc(p.file), source_note(p.credit))
 end
 
+-- A note under a text that is not in the panel's language (English stands in until there is one).
+local function english_note(t, text_language, language)
+    if not text_language or text_language == language then return "" end
+    return '<div><i>' .. esc(t:text("ui.text_in_english")) .. "</i></div>"
+end
+
 --- options: { texts = litcomp.texts, language = code, open = { [key] = true },
 --- rosary = a set of mysteries (litcomp.rosary), prayers = the language's
 --- prayers (texts/prayers/), litany = show the Litany of Loreto, pictures =
@@ -245,7 +251,7 @@ function Html.entry(entry, t, options)
                                 table.insert(out, string.format('<div style="margin: 0.3em 0"><b>%s:</b> %s</div>',
                                     esc(t:text("author." .. s.author)), body))
                             end
-                            table.insert(out, source_note(chain.source) .. "</div>")
+                            table.insert(out, source_note(chain.source) .. english_note(t, chain.language, options.language) .. "</div>")
                             line(table.concat(out))
                         end
                     else
@@ -273,7 +279,8 @@ function Html.entry(entry, t, options)
                     for paragraph in (text.text .. "\n\n"):gmatch("(.-)\n\n") do
                         table.insert(out, '<div style="margin: 0.3em 0">' .. esc(paragraph) .. "</div>")
                     end
-                    table.insert(out, source_note(text.machine and text.edition or (text.edition .. ". " .. t:text("ui.public_domain"))) .. "</div>")
+                    table.insert(out, source_note(text.machine and text.edition or (text.edition .. ". " .. t:text("ui.public_domain")))
+                        .. english_note(t, text.language, options.language) .. "</div>")
                     line(table.concat(out))
                 end
             else
@@ -344,7 +351,7 @@ function Html.entry(entry, t, options)
                     table.insert(out, string.format('<div style="margin: 0.3em 0"><b>%s.</b> %s</div>',
                         esc(t:text("prayer." .. p.id)), marked(p.text)))
                 end
-                table.insert(out, source_note(prayers.source) .. "</div>")
+                table.insert(out, source_note(prayers.source) .. english_note(t, options.prayers_language, options.language) .. "</div>")
                 line(table.concat(out))
             end
             if options.litany and prayers.litany then
@@ -358,7 +365,7 @@ function Html.entry(entry, t, options)
                     if prayers.litany.prayer then
                         table.insert(out, '<div style="margin: 0.4em 0">' .. marked(prayers.litany.prayer) .. "</div>")
                     end
-                    table.insert(out, source_note(prayers.source) .. "</div>")
+                    table.insert(out, source_note(prayers.source) .. english_note(t, options.prayers_language, options.language) .. "</div>")
                     line(table.concat(out))
                 end
             end

@@ -2772,6 +2772,7 @@ return {
     ["ui.office_text_note_machine"] = "Paragrafy {chapters} dzieła {work}, przetłumaczone z łaciny przez model SI (fragment dłuższy niż w Liturgii godzin).", -- draft
     ["ui.office_text_note_machine_whole"] = "{work}: cały utwór zawierający czytanie, przetłumaczony z łaciny przez model SI (fragment dłuższy niż w Liturgii godzin).", -- draft
     ["ui.office_text_note_passage"] = "Fragment {work} zawierający czytanie (starszy przekład, więc jego rozmiar może się różnić od tekstu Liturgii godzin).", -- draft
+    ["ui.text_in_english"] = "Jeszcze niedostępne w Twoim języku: wyświetlono po angielsku.", -- draft
     ["ui.office_text_note_machine_original"] = "{work}: przetłumaczone z języka oryginału przez model SI (fragment dłuższy niż w Liturgii godzin).", -- draft
     ["ui.or"] = " lub ", -- draft
     ["ui.proper_solemnity"] = "W kościołach jemu poświęconych, tam gdzie jest głównym patronem, i w jego rodzinie zakonnej.", -- draft

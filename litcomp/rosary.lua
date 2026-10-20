@@ -57,10 +57,13 @@ function Rosary:of_day(entry, scheme)
     return self.data.sets[set]
 end
 
---- The prayers of the Rosary in a language (texts/prayers/<language>.lua),
---- or nil when they are not installed.
+--- The prayers of the Rosary in a language (texts/prayers/<language>.lua; English
+--- where the language has none) and the language they are in, or nil when they are not installed.
 function Rosary:prayers(language)
-    return self.source:find("texts/prayers/" .. language)
+    local own = self.source:find("texts/prayers/" .. language)
+    if own then return own, language end
+    local english = self.source:find("texts/prayers/en")
+    return english, english and "en" or nil
 end
 
 return Rosary

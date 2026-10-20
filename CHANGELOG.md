@@ -1,5 +1,18 @@
 # Changelog
 
+## v0.4.40 (2026-10-20)
+
+- Embedded texts without a translation in the panel's language (Office of Readings, Catena Aurea, Rosary prayers) now
+  show the English text, with a note saying so (all 11 languages, drafts), instead of nothing.
+- Office of Readings in English: 398 of 604 readings (30 more).
+  - Public-domain English: Athanasius (Festal Letters 5 and 14), Chrysostom (on the devil as tempter), Patrick's
+    Confession, Damascene (Exposition of the Faith 1), Macarius (Mason), Boniface's letter to Cuthbert (Kylie) and
+    Louis IX's teachings to his son (Joinville, Marzials).
+  - Translated by Claude Opus 5.5 and marked as such: Nazianzen (Oration 14), Basil (Homilies 6 and 20), Athanasius
+    (Letter to Serapion), Eusebius (Isaiah 40), Chrysostom (before his exile), Origen (Prayer, Martyrdom, Joshua,
+    Leviticus, Genesis), Procopius (Proverbs 9), Gregory's Dialogues (Scholastica), Augustine (Galatians), Baldwin
+    of Ford (three treatises), Bede (Magnificat).
+
 ## v0.4.39 (2026-10-20)
 
 - Office of Readings in English: 368 of 604 readings (49 more).

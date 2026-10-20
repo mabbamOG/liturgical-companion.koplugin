@@ -107,11 +107,13 @@ function Litcomp:render(entry, language, options)
         local month, day = entry.date:match("^%d+%-(%d+)%-(%d+)$")
         martyrology, martyrology_texts = self:martyrology():day(tonumber(month), tonumber(day), language, options.texts)
     end
+    local prayers, prayers_language
+    if rosary and options.texts then prayers, prayers_language = self:rosary():prayers(language) end
     return require("litcomp.render.html").entry(entry, self:i18n(language), {
         texts = options.texts and self:texts() or nil, language = language, open = options.open,
         rosary = rosary, litany = options.litany, pictures = options.pictures and self:pictures() or nil,
         martyrology = martyrology, martyrology_texts = martyrology_texts,
-        prayers = rosary and options.texts and self:rosary():prayers(language) or nil,
+        prayers = prayers, prayers_language = prayers_language,
     })
 end
 
