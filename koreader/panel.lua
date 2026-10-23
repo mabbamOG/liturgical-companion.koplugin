@@ -37,7 +37,7 @@ function Panel:show(calendar, date, state)
     local view, message = Day.view(plugin.lc, calendar, date, settings:get("missal"), state.language or settings:get("language"),
         { texts = settings:get("texts"), open = state.open, litany = settings:get("litany"),
           rosary = settings:get("rosary") ~= "off" and settings:get("rosary") or nil,
-          pictures = settings:get("pictures"), martyrology = settings:get("martyrology") })
+          pictures = settings:get("pictures"), martyrology = true })
     if not view then
         UIManager:show(InfoMessage:new{ text = plugin:text(message) })
         return

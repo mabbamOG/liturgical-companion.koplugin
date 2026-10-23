@@ -97,7 +97,7 @@ end
 --- (show the celebrations' pictures; their files are named relative to
 --- litcomp.pictures.DIR, which the caller gives the HTML viewer as its
 --- resource directory) and martyrology (the day's Roman Martyrology, with
---- its texts when texts is set).
+--- its descriptions when the embedded-content package provides them).
 function Litcomp:render(entry, language, options)
     options = options or {}
     local rosary = options.rosary and self:rosary():of_day(entry, options.rosary) or nil
@@ -105,7 +105,10 @@ function Litcomp:render(entry, language, options)
     local martyrology, martyrology_texts
     if options.martyrology and entry.missal == "missal.1970" then
         local month, day = entry.date:match("^%d+%-(%d+)%-(%d+)$")
-        martyrology, martyrology_texts = self:martyrology():day(tonumber(month), tonumber(day), language, options.texts)
+        -- Descriptions belong to the Martyrology, not to the separate
+        -- reading-text preference. `day` simply returns no descriptions in
+        -- a references-only package.
+        martyrology, martyrology_texts = self:martyrology():day(tonumber(month), tonumber(day), language, true)
     end
     local prayers, prayers_language
     if rosary and options.texts then prayers, prayers_language = self:rosary():prayers(language) end

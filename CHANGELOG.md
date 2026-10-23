@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.4.45 (2026-10-23)
+
+- The collapsed Roman Martyrology index is now always shown. Its optional
+  public-domain descriptions and saint pictures remain embedded-content only;
+  descriptions no longer depend on the reading-text preference.
+
 ## v0.4.44 (2026-10-23)
 
 - Tap an embedded saint, feast or Rosary picture to view it full-screen; tap

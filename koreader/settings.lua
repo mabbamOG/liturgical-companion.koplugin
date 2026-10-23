@@ -10,7 +10,6 @@ The plugin's settings in KOReader's settings file (one table under a key):
                "traditional" (fifteen mysteries) or "off"
     litany     the Litany of Loreto after the Rosary (boolean)
     pictures   show the celebrations' pictures, when installed (boolean)
-    martyrology  show the day's Roman Martyrology (boolean)
 ]]
 
 local Settings = {}
@@ -19,7 +18,7 @@ Settings.__index = Settings
 local KEY = "liturgical_companion"
 local DEFAULTS = { calendar = "GR", missal = "auto", language = "auto", announce = false, texts = true,
     rosary = "luminous", litany = true, pictures = true,
-    martyrology = true }
+}
 
 function Settings.new(store)
     return setmetatable({ store = store }, Settings)
