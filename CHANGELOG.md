@@ -1,5 +1,18 @@
 # Changelog
 
+## v0.4.44 (2026-10-23)
+
+- Tap an embedded saint, feast or Rosary picture to view it full-screen; tap
+  again to return to the entry.
+
+## v0.4.43 (2026-10-23)
+
+- Office of Readings in English: 401 of 604 readings (3 more). Didymus of
+  Alexandria (*On the Trinity* II.12) and Diadochus of Photice (*On Spiritual
+  Perfection* 6, 12–14, 26, 27 and 30) are translated from public-domain Migne
+  scans by OpenAI Codex GPT-6.1 Sol at medium reasoning; each reading names the
+  source language and model.
+
 ## v0.4.40 (2026-10-20)
 
 - Embedded texts without a translation in the panel's language (Office of Readings, Catena Aurea, Rosary prayers) now

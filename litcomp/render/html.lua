@@ -116,8 +116,10 @@ end
 
 -- A picture, centred, with its credit.
 local function picture(p)
-    return string.format('<div style="text-align: center; margin: 0.4em 0"><img src="%s" style="height: 9em"/>%s</div>',
-        esc(p.file), source_note(p.credit))
+    -- The panel handles picture: links by opening KOReader's full-screen
+    -- image viewer. The index only contains local image file names.
+    return string.format('<div style="text-align: center; margin: 0.4em 0"><a href="picture:%s"><img src="%s" style="height: 9em"/></a>%s</div>',
+        esc(p.file), esc(p.file), source_note(p.credit))
 end
 
 -- A note under a text that is not in the panel's language (English stands in until there is one).

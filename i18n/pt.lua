@@ -2768,12 +2768,12 @@ return {
     ["ui.obligation"] = "Dia santo de guarda", -- draft
     ["ui.office"] = "Ofício de leitura — segunda leitura", -- locale
     ["ui.office_text_note"] = "Capítulos {chapters} de {work}, que contêm a leitura (uma tradução mais antiga, portanto uma passagem mais longa que a do Ofício).", -- draft
-    ["ui.office_text_note_whole"] = "{work}, a peça inteira que contém a leitura (uma tradução mais antiga, portanto uma passagem mais longa que a do Ofício).", -- draft
     ["ui.office_text_note_machine"] = "Parágrafos {chapters} de {work}, traduzidos do latim por um modelo de IA (uma passagem mais longa que a do Ofício).", -- draft
     ["ui.office_text_note_machine_whole"] = "{work}: a peça inteira que contém a leitura, traduzida do latim por um modelo de IA (uma passagem mais longa que a do Ofício).", -- draft
     ["ui.office_text_note_passage"] = "Uma passagem de {work} que contém a leitura (uma tradução mais antiga, cuja extensão pode diferir da do Ofício).", -- draft
     ["ui.text_in_english"] = "Ainda não disponível no teu idioma: mostrado em inglês.", -- draft
     ["ui.office_text_note_machine_original"] = "{work}: traduzido da língua original por um modelo de IA (uma passagem mais longa que a do Ofício).", -- draft
+    ["ui.office_text_note_whole"] = "{work}, a peça inteira que contém a leitura (uma tradução mais antiga, portanto uma passagem mais longa que a do Ofício).", -- draft
     ["ui.or"] = " ou ", -- draft
     ["ui.proper_solemnity"] = "Nas igrejas a ele dedicadas, onde é padroeiro principal, e na sua família religiosa.", -- draft
     ["ui.public_domain"] = "Domínio público.", -- draft

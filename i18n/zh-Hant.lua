@@ -2768,12 +2768,12 @@ return {
     ["ui.obligation"] = "當守瞻禮", -- draft
     ["ui.office"] = "誦讀日課——第二篇讀經", -- locale
     ["ui.office_text_note"] = "{work} 第 {chapters} 章，包含本日讀經（較早的譯本，因此段落比日課經所載更長）。", -- draft
-    ["ui.office_text_note_whole"] = "{work}，包含本日讀經的全文（較早的譯本，因此段落比日課經所載更長）。", -- draft
     ["ui.office_text_note_machine"] = "{work} 第 {chapters} 節，由 AI 模型從拉丁文譯出（段落比日課經所載更長）。", -- draft
     ["ui.office_text_note_machine_whole"] = "{work}：包含本日讀經的全文，由 AI 模型從拉丁文譯出（段落比日課經所載更長）。", -- draft
     ["ui.office_text_note_passage"] = "{work} 中包含本日讀經的一段（較早的譯本，因此篇幅可能與日課經所載不同）。", -- draft
     ["ui.text_in_english"] = "暫無您所用語言的版本：以英文顯示。", -- draft
     ["ui.office_text_note_machine_original"] = "{work}：由 AI 模型從原文譯出（段落比日課經所載更長）。", -- draft
+    ["ui.office_text_note_whole"] = "{work}，包含本日讀經的全文（較早的譯本，因此段落比日課經所載更長）。", -- draft
     ["ui.or"] = "或", -- draft
     ["ui.proper_solemnity"] = "在奉獻給該聖人的聖堂、以其為主保之地，以及其修會中。", -- draft
     ["ui.public_domain"] = "公有領域。", -- draft

@@ -4,6 +4,7 @@ date picker. Builds on koreader/day.lua for the content.
 ]]
 
 local InfoMessage = require("ui/widget/infomessage")
+local ImageViewer = require("ui/widget/imageviewer")
 local TextViewer = require("ui/widget/textviewer")
 local UIManager = require("ui/uimanager")
 local _ = require("gettext")
@@ -68,10 +69,26 @@ function Panel:show(calendar, date, state)
         } },
     }
     -- A tap on a section's line ("toggle:<key>") opens or closes its text,
-    -- on the same page.
+    -- on the same page. A tap on an embedded picture opens it full-screen;
+    -- tapping that view closes it and returns to this unchanged panel.
     local box = viewer.scroll_widget and viewer.scroll_widget.htmlbox_widget
     if box then
         box.html_link_tapped_callback = function(link)
+            local file = link.uri and link.uri:match("^picture:([%w%._%-]+)$")
+            if file then
+                local image = ImageViewer:new{
+                    file = plugin.path .. "/" .. require("litcomp.pictures").DIR .. "/" .. file,
+                    fullscreen = true,
+                    with_title_bar = false,
+                    buttons_visible = false,
+                }
+                image.onTap = function(instance)
+                    UIManager:close(instance)
+                    return true
+                end
+                UIManager:show(image)
+                return
+            end
             local key = link.uri and link.uri:match("^toggle:(.+)$")
             if not key then return end
             local open = {}
