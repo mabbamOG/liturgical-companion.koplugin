@@ -1,5 +1,21 @@
 # Changelog
 
+## v0.4.46 (2026-10-27)
+
+- Close the modern Lectionary's embedded Bible text gaps in all eleven
+  languages. Correct the Ordinary Time 11 Wednesday assignments and Jonah's
+  ending; supply explicitly credited containing passages for Greek Esther
+  and French Isaiah. Add separately attributed AI supplements for missing
+  Polish, Russian and Chinese deuterocanonical passages.
+- Complete the Rosary prayers and Litany of Loreto in Polish, Russian and
+  both Chinese scripts, translated directly from Latin with model credits.
+- Fill individual Martyrology description gaps from the existing English
+  1916 and Latin 1913 public-domain texts, then English Wikipedia. Preserve
+  existing local-language descriptions and credit each new translation's
+  source and actual model; Wikipedia adaptations retain CC BY-SA attribution.
+- Catena and Office texts continue to use English in every interface
+  language. Historical-Missal Bible numbering is outside this content pass.
+
 ## v0.4.45 (2026-10-23)
 
 - The collapsed Roman Martyrology index is now always shown. Its optional

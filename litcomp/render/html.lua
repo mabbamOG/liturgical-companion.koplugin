@@ -307,8 +307,10 @@ function Html.entry(entry, t, options)
                 if e.text then
                     local mark = ""
                     if e.from == "mt" then mark, translated = "<sup>*</sup>", true end
+                    if e.from == "fallback" then mark = "<sup>*</sup>" end
                     body = " " .. mark .. esc(e.text)
-                    if e.from == "wp" then
+                    if e.attribution then body = body .. source_note(e.attribution) end
+                    if e.from == "wp" or e.origin == "wp" then
                         wikipedia = true
                         body = body .. string.format(' <span style="font-size: 0.8em"><i>(%s)</i></span>',
                             esc(t:format("ui.wikipedia_article", { article = e.article })))

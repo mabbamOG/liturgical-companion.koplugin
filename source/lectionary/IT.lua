@@ -1704,13 +1704,13 @@ return {
         ["ordinary-time-11-wednesday"] = {
             day = {
                 I = {
-                    { "first_reading", "2CO 6:1-10" },
-                    { "psalm", "PSA 33:1-2; 33:10-11; 33:16; 33:24", "greek_vulgate" },
+                    { "first_reading", "2CO 9:6-11" },
+                    { "psalm", "PSA 111:1-2; 111:3-4; 111:9", "greek_vulgate" },
                     { "gospel", "MAT 6:1-6; 6:16-18" },
                 },
                 II = {
                     { "first_reading", "2KI 2:1; 2:6-14" },
-                    { "psalm", "PSA 33:1-2; 33:10-11; 33:16; 33:24", "greek_vulgate" },
+                    { "psalm", "PSA 30:20-21; 30:24", "greek_vulgate" },
                     { "gospel", "MAT 6:1-6; 6:16-18" },
                 },
             },

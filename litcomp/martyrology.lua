@@ -11,6 +11,9 @@ and the entry's text with its origin:
     1913  Martyrologium Romanum (Mechelen, 1913), public domain (la)
     mt    the 1916 text translated by an AI model (the file's `translator`)
     wp    the lead of the Wikipedia article (`article`), CC BY-SA 4.0
+    fallback  a translated missing description; `origin` identifies its
+              historical edition or English Wikipedia and `attribution`
+              names the source language, licence and actual model
 
 A name from Wikidata is a bare name: the panel gives it its title (saint or
 blessed, by sex) from the translation table ("martyrology.saint" ...). An
@@ -66,6 +69,7 @@ function Martyrology:day(month, day, language, with_texts)
         end
         if row and row.text then
             entry.text, entry.from, entry.article = row.text, row.from, row.article
+            entry.origin, entry.attribution = row.origin, row.attribution
         end
         table.insert(out, entry)
     end

@@ -122,10 +122,13 @@ reform took effect over months or years.
 
 - **References, and optionally texts.** The plain package shows names and
   citations only; pair it with the Bible you are reading. The "-embedded-content" package
-  adds what is free to share: the English readings (World English Bible,
-  Catholic edition), the Rosary's prayers and the Litany of Loreto, and
-  pictures of the saints from Wikimedia Commons. Each text and picture names
-  its source; the menu can hide them.
+  adds Bible readings and Rosary prayers in eleven languages, available
+  Martyrology descriptions, the Catena Aurea and available Office readings in
+  English, and selected pictures from Wikimedia Commons. Where a local Bible
+  edition lacks a required passage, a separately credited AI supplement may
+  supply it. Martyrology descriptions prefer existing local text and use
+  labelled translations to fill individual gaps. Each text and picture names
+  its source; optional reading texts and pictures can be hidden in the menu.
 - **Not an official liturgical book.** Check your diocese's Ordo for local feasts and
   transfers. Readings follow the U.S. Lectionary as published by the USCCB;
   Italy and the General Roman Calendar use their own editions where the project

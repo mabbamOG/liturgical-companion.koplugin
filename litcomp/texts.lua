@@ -31,7 +31,8 @@ function Texts:edition(id)
     if edition == nil then
         local dir = "texts/bible/" .. id
         local meta = self.source:find(dir .. "/meta")
-        edition = meta and { id = id, dir = dir, meta = meta, map = self.source:get(dir .. "/versification") } or false
+        edition = meta and { id = id, dir = dir, meta = meta, map = self.source:get(dir .. "/versification"),
+            supplements = self.source:find(dir .. "/supplements") } or false
         self.editions[id] = edition
     end
     return edition
@@ -113,6 +114,17 @@ end
 function Texts:reading(reading, language)
     local edition = self:bible(language)
     if not edition then return nil end
+    local Citation = require("litcomp.core.citation")
+    local forms = {}
+    for i, ranges in ipairs(reading.forms) do
+        forms[i] = {}
+        for j, r in ipairs(ranges) do
+            forms[i][j] = { book = r.book:gsub("^book%.", ""), from = r.from, to = r.to }
+        end
+    end
+    local key = Citation.format(forms) .. "/" .. (reading.numbering or "hebrew")
+    local supplement = edition.supplements and edition.supplements[key]
+    if supplement then return supplement end
     local verses = {}
     for _i, range in ipairs(reading.forms[1]) do
         local part = range_verses(self, edition, range, reading.numbering)

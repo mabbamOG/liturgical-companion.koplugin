@@ -80,6 +80,12 @@ Embedded texts and pictures (texts/, in the "-embedded-content" package only)
   19th-century spelling), public domain, from the Wikisource transcription
   (CC BY-SA 4.0, https://pl.wikisource.org/wiki/Biblia_Wujka_(1923)); without
   the deuterocanonical books.
+- Bible supplements (texts/bible/*/supplements.lua): containing passages and
+  numbering corrections reuse the credited edition. Missing deuterocanonical
+  passages in Polish, Russian and Chinese are supplemental AI translations
+  from the public-domain English Bible by OpenAI Codex GPT-6.1 Sol (medium
+  reasoning). Their separate attribution identifies the source and model;
+  they are not wording from the Wujek, Synodal or Chinese Union editions.
 - Rosary prayers and the Litany of Loreto: public-domain prayer books (A
   Manual of Prayers, Baltimore 1889; Catéchisme illustré, Paris 1906;
   Comtesse de Ségur, 1858; É.-M. Faillon, 1860; El alma con Dios, 1902;
@@ -87,6 +93,9 @@ Embedded texts and pictures (texts/, in the "-embedded-content" package only)
   Mary), some transcribed on Wikisource (CC BY-SA). What they lack is
   translated from the traditional Latin by the AI model Claude Opus 5.5 and
   marked with a star (*). Latin: traditional texts, public domain. The
+  Polish, Russian and Chinese prayers and Litany are translated directly
+  from Latin by OpenAI Codex GPT-6.1 Sol (medium reasoning), also marked *.
+  Each language file states its source and actual model. The
   mysteries' short titles follow vatican.va's "The Holy Rosary".
 - Catena Aurea texts (texts/catena/, English): the Oxford translation edited
   by John Henry Newman (1841-1845), public domain, from the structured Catena
@@ -101,13 +110,22 @@ Embedded texts and pictures (texts/, in the "-embedded-content" package only)
   Fathers with no free English translation are the Latin of Migne's
   Patrologia Latina (Paris, 1844-1865, public domain, via the Internet
   Archive's edition) translated into English by the AI model Claude Opus 5.5;
-  each such reading says so in its own source line.
+  newer additions also use OpenAI Codex GPT-6.1 Sol. Each such reading names
+  the model that actually translated it in its own source line.
 - Roman Martyrology texts (texts/martyrology/): The Roman Martyrology
   (Baltimore, 1916) and Martyrologium Romanum (Mechelen, 1913), public
   domain, as aligned by CatholicOS/martyrology-api (Apache-2.0); their
   translations into other languages by the AI model Claude Opus 5.5 (marked
   *); names from Wikidata (CC0); article leads from Wikipedia (CC BY-SA 4.0),
   each credited with its article.
+- Martyrology fallback descriptions preserve existing local text and fill
+  individual missing entries from the English 1916 or Latin 1913 public-domain
+  texts, then English Wikipedia where no historical text is available.
+  Translations are by OpenAI Codex GPT-6.1 Sol (medium reasoning), marked *,
+  with source, language and model attributed per entry. Traditional Chinese
+  fallback translations may be converted from Simplified Chinese with
+  OpenCC, as stated in their attribution. Wikipedia adaptations remain
+  CC BY-SA 4.0 and retain a link to the original English article.
 - Pictures (texts/pictures/): images from Wikimedia Commons
   (https://commons.wikimedia.org/), reduced and converted to greyscale. Each
   keeps its own licence (public domain, CC0, CC BY or CC BY-SA), named with its

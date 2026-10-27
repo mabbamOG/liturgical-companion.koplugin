@@ -4989,7 +4989,7 @@ return {
         ["ordinary-time-27-monday"] = {
             day = {
                 I = {
-                    { "first_reading", "JON 1:1-2:2; 1:11" },
+                    { "first_reading", "JON 1:1-2:2; 2:11" },
                     { "psalm", "JON 2:3; 2:4; 2:5; 2:8", "hebrew" },
                     { "acclamation", "JHN 13:34" },
                     { "gospel", "LUK 10:25-37" },
