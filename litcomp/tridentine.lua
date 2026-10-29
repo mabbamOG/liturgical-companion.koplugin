@@ -33,7 +33,7 @@ function Tridentine:citations(text)
 end
 
 local function reading(slot, forms)
-    return { slot = slot, forms = forms }
+    return { slot = slot, forms = forms, numbering = "vulgate" }
 end
 
 function Tridentine:entry(request)

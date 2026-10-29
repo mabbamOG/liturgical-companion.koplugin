@@ -467,7 +467,7 @@ return {
     ["oor-c15d2535bac6ab5c"] = { author = "theodoret-of-cyr", label = "19th Week in Ord. Time, Monday", locator = "26-27", work = "on-the-incarnation" },
     ["oor-c2225a604c476307"] = { author = "cyprian-of-carthage", label = "Common of Several Martyrs", locator = "6, 1-2", work = "letter" },
     ["oor-c281321c12c9a436"] = { author = "gregory-the-great", label = "Oct. 18: Luke, evangelist", locator = "17, 1-3", work = "on-the-gospels" },
-    ["oor-c2c0413bfeec9c74"] = { author = "gregory-nazianzen", label = "From Jan. 2 to Epiphany, Friday", locator = "634: Sunday of the Baptism of the Lord]", work = "cf-pg" },
+    ["oor-c2c0413bfeec9c74"] = { author = "gregory-nazianzen", label = "From Jan. 2 to Epiphany, Friday", locator = "39, 14-16.20", work = "discourse" },
     ["oor-c2d3634f9f4289df"] = { author = "augustine-of-hippo", label = "29th Week in Ord. Time, Wednesday", locator = "130 to Proba 12, 22—13, 24", work = "letter" },
     ["oor-c4609deb8ec6accb"] = { author = "augustine-of-hippo", label = "From Jan. 2 to Epiphany, Thursday", locator = "194, 3-4", work = "sermon" },
     ["oor-c511ea72a73742ae"] = { author = "second-vatican-council", label = "2nd Week of Easter, Saturday", locator = "5-6", work = "constitution-on-the-sacred-liturgy" },

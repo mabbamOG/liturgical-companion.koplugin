@@ -2823,7 +2823,6 @@ return {
     ["work.catecheses"] = "Katechesen", -- draft
     ["work.catechetical-instruction"] = "Katechese", -- draft
     ["work.catechism"] = "Katechismus", -- draft
-    ["work.cf-pg"] = "[Vgl. PG", -- draft
     ["work.chapters-on-charity"] = "Kapitel über die Liebe", -- draft
     ["work.conference"] = "Konferenz", -- draft
     ["work.conference-to-her-spiritual-daughters"] = "Konferenz an ihre geistlichen Töchter", -- draft

@@ -2823,7 +2823,6 @@ return {
     ["work.catecheses"] = "要理講授", -- draft
     ["work.catechetical-instruction"] = "要理講授", -- draft
     ["work.catechism"] = "要理問答", -- draft
-    ["work.cf-pg"] = "[參見 PG", -- draft
     ["work.chapters-on-charity"] = "論愛德", -- draft
     ["work.conference"] = "講話", -- draft
     ["work.conference-to-her-spiritual-daughters"] = "對神女們的講話", -- draft

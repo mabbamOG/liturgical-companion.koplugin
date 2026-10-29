@@ -1,5 +1,21 @@
 # Changelog
 
+## v0.4.47 (2026-10-29)
+
+- Correct historical-Missal verse numbering and two malformed references.
+  All 466 distinct passages now resolve in all eleven languages. Historical
+  English uses public-domain Douay-Rheims passages; missing passages in other
+  editions carry separate Sol translation credits.
+- Add 44 Office readings: coverage is 445 of 603 genuine assignments. The
+  source index's 604th row is Easter Sunday, which has no separate second
+  reading. New sources include older English editions, four Sol translations
+  from Latin/Greek, and 36 CC BY translations from Migne Reading Room, with
+  original publisher/model/licence credits. Office texts remain English.
+- Restore descriptions for thirteen saints missed by identity/date matching,
+  including Mother Teresa, Edith Stein, Faustina, Dominic Savio, John XXIII
+  and Titus Brandsma. Preserve local Wikipedia text and fill each missing
+  language from the credited English fallback.
+
 ## v0.4.46 (2026-10-27)
 
 - Close the modern Lectionary's embedded Bible text gaps in all eleven

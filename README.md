@@ -88,6 +88,13 @@ Languages: English, Latin, Italian, German, French, Spanish, Portuguese,
 Polish, Russian, and Simplified and Traditional Chinese. Every name (saints,
 feasts, authors, works) is translated in every language.
 
+The embedded package includes Bible passages for every indexed modern and
+historical Mass reading in all eleven languages, using credited older editions
+and separately labelled AI supplements. Historical English uses Douay-Rheims.
+Office texts cover 445 of 603 assignments and are shown in English, including
+when another interface language is selected. Source and translation credits
+appear beside each text; missing Office texts retain their references.
+
 **Any date from 15 October 1582 to 9999.** Nothing is stored per day: the plugin computes
 each day on your device from the liturgical rules (Easter and the seasons,
 feasts and their precedence, national transfers) and small reference tables

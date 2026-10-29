@@ -2823,7 +2823,6 @@ return {
     ["work.catecheses"] = "Огласительные поучения", -- draft
     ["work.catechetical-instruction"] = "Огласительное поучение", -- draft
     ["work.catechism"] = "Катехизис", -- draft
-    ["work.cf-pg"] = "[Ср. PG", -- draft
     ["work.chapters-on-charity"] = "Главы о любви", -- draft
     ["work.conference"] = "Собеседование", -- draft
     ["work.conference-to-her-spiritual-daughters"] = "Беседа с духовными дочерьми", -- draft

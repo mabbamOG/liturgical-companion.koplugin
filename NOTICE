@@ -86,6 +86,13 @@ Embedded texts and pictures (texts/, in the "-embedded-content" package only)
   from the public-domain English Bible by OpenAI Codex GPT-6.1 Sol (medium
   reasoning). Their separate attribution identifies the source and model;
   they are not wording from the Wujek, Synodal or Chinese Union editions.
+- Historical-Missal English Bible passages (texts/bible/en-dra/): Douay-Rheims
+  Challoner, public domain; Project Gutenberg eBook 1581,
+  https://www.gutenberg.org/ebooks/1581. Only required passages are included.
+  Historical references use Vulgate numbering. Missing historical passages
+  in French, Spanish, Portuguese, Polish, Russian and both Chinese scripts
+  have separate GPT-6.1 Sol (medium reasoning) translation attribution from
+  this English public-domain source.
 - Rosary prayers and the Litany of Loreto: public-domain prayer books (A
   Manual of Prayers, Baltimore 1889; Catéchisme illustré, Paris 1906;
   Comtesse de Ségur, 1858; É.-M. Faillon, 1860; El alma con Dios, 1902;
@@ -112,6 +119,13 @@ Embedded texts and pictures (texts/, in the "-embedded-content" package only)
   Archive's edition) translated into English by the AI model Claude Opus 5.5;
   newer additions also use OpenAI Codex GPT-6.1 Sol. Each such reading names
   the model that actually translated it in its own source line.
+- Additional Office translations: Migne Reading Room,
+  https://www.mignereadingroom.org/about.html. Translations © 2026 Ramon
+  Bongiovanni and contributors, CC BY 4.0,
+  https://creativecommons.org/licenses/by/4.0/. Publisher: Claude (Anthropic),
+  model version unspecified. The underlying Migne Latin and Greek are public
+  domain. Imported author-text pairs exclude editorial notes; containing
+  passages and paragraph joins are identified by their source credits.
 - Roman Martyrology texts (texts/martyrology/): The Roman Martyrology
   (Baltimore, 1916) and Martyrologium Romanum (Mechelen, 1913), public
   domain, as aligned by CatholicOS/martyrology-api (Apache-2.0); their

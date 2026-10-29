@@ -112,7 +112,8 @@ end
 --- verses keep the Lectionary's numbering.
 --- The first form of a citation with alternatives is the one given.
 function Texts:reading(reading, language)
-    local edition = self:bible(language)
+    local historical = reading.numbering == "vulgate"
+    local edition = historical and language == "en" and self:edition("en-dra") or self:bible(language)
     if not edition then return nil end
     local Citation = require("litcomp.core.citation")
     local forms = {}
@@ -125,6 +126,7 @@ function Texts:reading(reading, language)
     local key = Citation.format(forms) .. "/" .. (reading.numbering or "hebrew")
     local supplement = edition.supplements and edition.supplements[key]
     if supplement then return supplement end
+    if historical then return require("litcomp.vulgate").read(self.source, edition, reading) end
     local verses = {}
     for _i, range in ipairs(reading.forms[1]) do
         local part = range_verses(self, edition, range, reading.numbering)
